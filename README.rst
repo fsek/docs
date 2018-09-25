@@ -1,4 +1,7 @@
-=========
 docs
 =========
-Documentation for the Fsek webpage and app.
+Documentation for **fsek/app** and **fsek/web** using **Sphinx**.
+
+==============
+Installation
+==============

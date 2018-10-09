@@ -1,0 +1,213 @@
+.wrapper-content-right .section {
+    margin-top: 32px;
+}
+
+.wrapper-content-right > .section {
+    margin-top: 0px;
+}
+
+.toctree {
+    padding-left: 0;
+    list-style: none;
+    padding-bottom: 60px;
+}
+
+.toctree li {
+    list-style: none;
+}
+
+a.current, a.current-active {
+    font-weight: bold;
+}
+
+.highlight {
+    font-size: 14px;
+}
+
+.highlight pre {
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    background: #f0f0f0 none repeat scroll 0 0;
+}
+
+blockquote {
+    font-size: 20px;
+    border-left: 0px;
+    padding: 0px 0px;
+}
+
+/** admonitions **/
+
+div.admonition p {
+    padding: 10px 0;
+    margin: 0;
+}
+
+div.admonition {
+    padding: 0 0 0 105px;
+    margin: 20px 0;
+    border-left: 0;
+}
+
+div.admonition ul {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin: 0;
+}
+
+div.note {
+    background: url(../images/admonition/note.png) no-repeat top left;
+}
+
+div.seealso {
+    background: url(../images/admonition/seealso.png) no-repeat top left;
+}
+
+div.tip {
+    background: url(../images/admonition/tip.png) no-repeat top left;
+}
+
+div.caution {
+    background: url(../images/admonition/caution.png) no-repeat top left;
+}
+
+div.warning {
+    background: url(../images/admonition/warning.png) no-repeat top left;
+}
+
+div.danger {
+    background: url(../images/admonition/danger.png) no-repeat top left;
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2) {
+
+    div.note {
+        background-image: url(../images/admonition/note@2x.png);
+        background-size: 90px 78px;
+    }
+
+    div.seealso {
+        background-image: url(../images/admonition/seealso@2x.png);
+        background-size: 90px 78px;
+    }
+
+    div.tip {
+        background-image: url(../images/admonition/tip@2x.png);
+        background-size: 90px 78px;
+    }
+
+    div.caution {
+        background-image: url(../images/admonition/caution@2x.png);
+        background-size: 90px 78px;
+    }
+
+    div.warning {
+        background-image: url(../images/admonition/warning@2x.png);
+        background-size: 90px 78px;
+    }
+
+    div.danger {
+        background-image: url(../images/admonition/danger@2x.png);
+        background-size: 90px 78px;
+    }
+
+}
+
+.note .admonition-title,
+.seealso .admonition-title,
+.tip .admonition-title,
+.caution .admonition-title,
+.warning .admonition-title,
+.danger .admonition-title {
+    padding: 10px 0 0 0;
+    font-weight: bold;
+    color: #000000;
+    text-transform: capitalize
+}
+
+.bs-docs-sidenav > li {
+    display: none;
+}
+
+/** MENUE **/
+
+.bs-docs-sidenav .toctree li {
+    padding: 3px 0px;
+    line-height: 16px;
+}
+
+.bs-docs-sidenav .toctree li.border-top {
+    border-top: 1px solid #e7e7e7;
+    padding-top: 16px;
+    margin-top: 16px;
+}
+
+.bs-docs-sidenav .toctree li a {
+    text-decoration: none;
+    font-size: 14px;
+    line-height: 16px;
+    color: black;
+}
+
+.bs-docs-sidenav .toctree li.current > a,
+.bs-docs-sidenav .toctree li.active > a {
+    font-weight: bold;
+}
+.bs-docs-sidenav ul {
+    margin-bottom: 0px;
+}
+.bs-docs-sidenav .toctree ul ul ul {
+    display: none;
+}
+
+.bs-docs-sidenav .toctree li.current > ul,
+.bs-docs-sidenav .toctree ul li.active > ul {
+    display: block !important;
+}
+.bs-docs-sidenav {
+    padding-left: 0px;
+}
+.bs-docs-sidebar {
+    padding: 8px 16px;
+}
+
+.affix {
+    position: fixed !important;
+    top: 20px;
+}
+
+#nav-affix {
+    overflow-y: auto;
+    width: 240px;
+}
+
+.wrapper-navleft {
+    padding: 0px;
+    border: 0px;
+}
+.wrapper-navleft .bs-docs-sidebar {
+    border: 1px solid #e7e7e7;
+}
+.wrapper-content-right li {
+    font-size: 16px;
+    line-height: 1.5em;
+}
+
+h1 code,
+h2 code,
+h3 code,
+h4 code,
+h5 code,
+h6 code {
+    border: 0;
+}
+
+a code {
+    border: 0;
+    font-weight: normal;
+}
+
+div.topic {
+    border: 0;
+}

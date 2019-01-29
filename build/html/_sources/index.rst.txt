@@ -4,15 +4,17 @@
    contain the root `toctree` directive.
 
 Welcome to F-sek's documentation!
-===================================
+=================================
 
-This is an amazing documentation.
+This is an amazing documentation!
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+   :caption: Documentation:
 
-   app
-   web
+   ./getting_started/getting_started
+   ./app/app
+   ./web/web
+   git_workflow
+   spiderman_duties
 
 

@@ -1,0 +1,287 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="rn" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="rn" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Git workflow aka git gud &mdash; F-sek  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="How to be a spodermon" href="spiderman_duties.html" />
+    <link rel="prev" title="Installation Guide" href="web/installation_guide.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> F-sek
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Documentation:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="getting_started/getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="app/app.html">App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web/web.html">Web</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Git workflow aka git gud</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#create-a-new-branch-git-checkout-b-new-branch">1. Create a new branch: git checkout -b new-branch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#make-some-changes">2. Make some changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#prepare-to-upload-changes-git-add-filename-flag">3. Prepare to upload changes: git add [FILENAME] [-FLAG]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#group-changes-and-describe-them-git-commit-m-message">4. Group changes and describe them: git commit [-m &quot;message&quot;]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#head-to-the-master-branch-to-ensure-you-have-the-latest-version-of-the-website-git-checkout-master">5. Head to the master branch to ensure you have the latest version of the website: git checkout master</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fetch-changes-git-pull">6. Fetch changes: git pull</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#return-to-your-branch-git-checkout-your-branch">7. Return to your branch: git checkout [YOUR BRANCH]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#combine-the-changes-to-master-with-yours-git-rebase-master">8. Combine the changes to master with yours: git rebase master</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#solve-conflicts-by-doing-any-of-the-steps-below">9. Solve conflicts by doing any of the steps below</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#when-you-feel-that-you-have-solved-all-conflicts-run-if-this-fails-keep-fixing-conflicts-with-step-9-git-rebase-continue">10. When you feel that you have solved all conflicts run (if this fails, keep fixing conflicts with step 9): git rebase --continue</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#push-changes-to-github-git-push-fu">11. Push changes to GitHub: git push (-fu)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#head-over-to-github-and-change-to-your-branch-create-a-pull-request-and-describe-your-changes-to-potential-reviewers-make-changes-after-suggestions-from-collaborators-and-bots">12. Head over to GitHub and change to your branch. Create a pull request and describe your changes to potential reviewers. Make changes after suggestions from collaborators and bots.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#if-you-have-several-commits-which-can-be-logically-grouped-squash-them-with-git-rebase-i-head-x-where-x-is-the-number-of-commits-you-wish-to-change-you-are-not-required-to-change-x-commits-you-simply-have-the-possibility">13. If you have several commits which can be logically grouped squash them with git rebase -i HEAD~x where x is the number of commits you wish to change. You are not required to change x commits, you simply have the possibility.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#when-you-and-your-collaborators-feel-satisfied-with-the-changes-rebase-them-into-master">14. When you and your collaborators feel satisfied with the changes rebase them into master.</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="spiderman_duties.html">How to be a spodermon</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">F-sek</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Git workflow aka git gud</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/git_workflow.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="git-workflow-aka-git-gud">
+<h1>Git workflow aka git gud<a class="headerlink" href="#git-workflow-aka-git-gud" title="Permalink to this headline">¶</a></h1>
+<p>The steps below describe going from an idea, implementing it and then adding it to the live website. If you're new to Github I would recommend heading here for a more general description of the workflow. It's important to understand the purpose of the steps below before you learn the actual commands.</p>
+<div class="section" id="create-a-new-branch-git-checkout-b-new-branch">
+<h2>1. Create a new branch: git checkout -b new-branch<a class="headerlink" href="#create-a-new-branch-git-checkout-b-new-branch" title="Permalink to this headline">¶</a></h2>
+<p>This step ensures your changes won't interfere with the main branch of the website. When on your own branch you can change stuff without worrying about accidentally affecting the website.</p>
+</div>
+<div class="section" id="make-some-changes">
+<h2>2. Make some changes<a class="headerlink" href="#make-some-changes" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="prepare-to-upload-changes-git-add-filename-flag">
+<h2>3. Prepare to upload changes: git add [FILENAME] [-FLAG]<a class="headerlink" href="#prepare-to-upload-changes-git-add-filename-flag" title="Permalink to this headline">¶</a></h2>
+<p>This command tells git that you are finished editing your files. The FLAG is optional and is useful if you want to add all changed files. If that is the case omit FILENAME and use A as flag.</p>
+</div>
+<div class="section" id="group-changes-and-describe-them-git-commit-m-message">
+<h2>4. Group changes and describe them: git commit [-m &quot;message&quot;]<a class="headerlink" href="#group-changes-and-describe-them-git-commit-m-message" title="Permalink to this headline">¶</a></h2>
+<p>Try to write a descriptive message to ensure changes make sense to any collaborator. If you write only git commit git will use a text editor where you can write your commit message. This allows multiline messages which can be useful.</p>
+</div>
+<div class="section" id="head-to-the-master-branch-to-ensure-you-have-the-latest-version-of-the-website-git-checkout-master">
+<h2>5. Head to the master branch to ensure you have the latest version of the website: git checkout master<a class="headerlink" href="#head-to-the-master-branch-to-ensure-you-have-the-latest-version-of-the-website-git-checkout-master" title="Permalink to this headline">¶</a></h2>
+<p>It's important to get the latest version to check if your changes interfere with any other changes.</p>
+</div>
+<div class="section" id="fetch-changes-git-pull">
+<h2>6. Fetch changes: git pull<a class="headerlink" href="#fetch-changes-git-pull" title="Permalink to this headline">¶</a></h2>
+<p>Downloads the latest version from GitHub. If no changes were downloaded go to step 11.</p>
+</div>
+<div class="section" id="return-to-your-branch-git-checkout-your-branch">
+<h2>7. Return to your branch: git checkout [YOUR BRANCH]<a class="headerlink" href="#return-to-your-branch-git-checkout-your-branch" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="combine-the-changes-to-master-with-yours-git-rebase-master">
+<h2>8. Combine the changes to master with yours: git rebase master<a class="headerlink" href="#combine-the-changes-to-master-with-yours-git-rebase-master" title="Permalink to this headline">¶</a></h2>
+<p>Before adding the changes to the live website it's important to combine them with other changes. Doing this ensures no complication arises when later adding your changes. You will most likely get an &quot;error&quot; message saying your changes could not automatically be merged. If that is not the case then go to step 11.</p>
+</div>
+<div class="section" id="solve-conflicts-by-doing-any-of-the-steps-below">
+<h2>9. Solve conflicts by doing any of the steps below<a class="headerlink" href="#solve-conflicts-by-doing-any-of-the-steps-below" title="Permalink to this headline">¶</a></h2>
+<p>Edit each conflicting file and choose the changes you want to keep
+You can choose an entire file from either master or your branch by running: git checkout [OURS/THEIRS] - [FILE NAME]
+Note: THIS IS HIGHLY UNINTUITIVE
+OURS: This will use the file from master
+THEIRS: This will keep the file from your branch
+Yes this is unintuitive but ours and theirs are from the master branch point of view.</p>
+</div>
+<div class="section" id="when-you-feel-that-you-have-solved-all-conflicts-run-if-this-fails-keep-fixing-conflicts-with-step-9-git-rebase-continue">
+<h2>10. When you feel that you have solved all conflicts run (if this fails, keep fixing conflicts with step 9): git rebase --continue<a class="headerlink" href="#when-you-feel-that-you-have-solved-all-conflicts-run-if-this-fails-keep-fixing-conflicts-with-step-9-git-rebase-continue" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="push-changes-to-github-git-push-fu">
+<h2>11. Push changes to GitHub: git push (-fu)<a class="headerlink" href="#push-changes-to-github-git-push-fu" title="Permalink to this headline">¶</a></h2>
+<p>If you get an error about being behind the remote branch and still know you want to push run the command with the flag -fu.</p>
+</div>
+<div class="section" id="head-over-to-github-and-change-to-your-branch-create-a-pull-request-and-describe-your-changes-to-potential-reviewers-make-changes-after-suggestions-from-collaborators-and-bots">
+<h2>12. Head over to GitHub and change to your branch. Create a pull request and describe your changes to potential reviewers. Make changes after suggestions from collaborators and bots.<a class="headerlink" href="#head-over-to-github-and-change-to-your-branch-create-a-pull-request-and-describe-your-changes-to-potential-reviewers-make-changes-after-suggestions-from-collaborators-and-bots" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="if-you-have-several-commits-which-can-be-logically-grouped-squash-them-with-git-rebase-i-head-x-where-x-is-the-number-of-commits-you-wish-to-change-you-are-not-required-to-change-x-commits-you-simply-have-the-possibility">
+<h2>13. If you have several commits which can be logically grouped squash them with git rebase -i HEAD~x where x is the number of commits you wish to change. You are not required to change x commits, you simply have the possibility.<a class="headerlink" href="#if-you-have-several-commits-which-can-be-logically-grouped-squash-them-with-git-rebase-i-head-x-where-x-is-the-number-of-commits-you-wish-to-change-you-are-not-required-to-change-x-commits-you-simply-have-the-possibility" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="when-you-and-your-collaborators-feel-satisfied-with-the-changes-rebase-them-into-master">
+<h2>14. When you and your collaborators feel satisfied with the changes rebase them into master.<a class="headerlink" href="#when-you-and-your-collaborators-feel-satisfied-with-the-changes-rebase-them-into-master" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="spiderman_duties.html" class="btn btn-neutral float-right" title="How to be a spodermon" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="web/installation_guide.html" class="btn btn-neutral" title="Installation Guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, F-sektionen inom TLTH
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

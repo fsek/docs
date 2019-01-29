@@ -1,6 +1,5 @@
-
 Web
-=============
+===
 
 Web stuff
 
@@ -23,3 +22,11 @@ Web stuff
 +------------------------+------------+----------+----------+
 | body row 2             | ...        | ...      |          |
 +------------------------+------------+----------+----------+
+
+.. toctree::
+   :caption: Documentation:
+
+   installation_guide
+   get_started_coding
+   naming
+

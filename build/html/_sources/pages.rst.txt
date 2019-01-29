@@ -1,0 +1,10 @@
+Pages
+=====
+
+All the pages in the app
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Pages:
+
+   songbook

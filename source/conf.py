@@ -145,7 +145,7 @@ latex_elements = {
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
     (master_doc, 'Fsek.tex', 'Fsek Documentation',
-     'Tony', 'manual'),
+     'F-sektionen', 'manual'),
 ]
 
 

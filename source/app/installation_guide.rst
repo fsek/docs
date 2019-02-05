@@ -1,97 +1,92 @@
+.. _app-installation-guide:
+
 Installation Guide
 ==================
 
-=========================
-Installing Adobe PhoneGap
-=========================
+=================================
+Installing the Adobe PhoneGap CLI
+=================================
 
-To get PhoneGap set up we can start with PhoneGap's own installation guide. Do step 1 in this guide and install the PhoneGap CLI (Command Line Interface) and not the desktop application. Be sure to install the requirements stated in the guide (Node.js and Git) before you install the actual CLI. The reason why we don't use the desktop app due to its limitations and the same goes for Github's desktop application. It's important to note that it takes a while to get used to these CLI:s, Github especially, because they do not have an intuitive interface. Rather, they have a lot of different commands that take some time to learn but are better in the long run. With that in mind don't be afraid to ask for help if things ever become confusing. Step 2 of the guide is installing PhoneGap's mobile app, which is a way for you to test your changes on your own device. We haven't tested it to a large extent yet, but it's basically the equivalent of a simple emulator that is very easy to set up. For now, this will do perfectly fine though and I would recommend downloading it. How to use their app is described later on in Standard workflow.
+The F-app is made with Adobe PhoneGap, so to get up and running we need to install the PhoneGap Command Line Inteface (CLI). We choose not to work with the PhoneGap Desktop App due to its limitations compared to the  CLI. The Phonegap CLI has a requirement of both *git* and *node.js*, which we shall install first. Follow the links below and install the software if you haven't done so already.
+
+ - `node.js <https://nodejs.org/en/>`_ - a cross-platform JavaScript run-time environment that executes JavaScript code outside of a browser.
+ - `git <https://git-scm.com/downloads>`_ - downloads assets in the background for the CLI. Note that some operating systems already have this pre-installed.
+
+Now, we simply install the PhoneGap CLI with Node's default package manager *npm* (Node Package Manager)::
+
+  npm install -g phonegap@latest
+
+To check if it has installed properly run ``phonegap`` in the command line. It should show something similar to::
+
+  $ phonegap
+  Usage: phonegap [options] [commands]
+  Description:
+  PhoneGap command-line tool.
+  Commands:
+    help [command]       output usage information
+    create <path>        create a phonegap project
+    ...
+
+
+==============
+Setting up Git
+==============
+
+We need to configure Git if you have not used it before. Run::
+
+  git config --global user.name "Firstname Lastname"
+  git config --global user.email email@example.com
+
+using the same email as your account on GitHub.
+
+We also recommended you to run the following command to simplify your pushes to git::
+
+  git config --global push.default current
 
 =============================
 Cloning the Github repository
 =============================
 
-A repository or repo is, in other words, a Github project where all of our files are stored. When we talk about cloning a repo we mean downloading the project files to your computer and linking them with Github. We do this by using the Github command clone that is executed in CMD on Windows or the Terminal for macOS and Linux based systems. When executing a Github command you always use the prefix git i.e. the syntax would be git [command]. Now, when cloning we also need to specify what repo we're going to clone. We can do this by using a special link that you can find on the repo's start page (the code tab), which is here for the F-app. On the right, there should be a big green button saying "Clone or download" that will give you the cloning link (see figure below). Make sure it says Clone with HTTPS at the top and not Clone with SSH.
+If you have never done this before, don't worry, it's fairly simple. You first need to navigate to your desired project location with the ``cd`` (change directory) command in the command line::
 
-Cloning repository (Picture)
+  cd <preferred project folder>
 
-The last thing you need to do is to pick what directory you're cloning into i.e. where you want to save the project files. Personally, I have a folder in documents with both the app and web repo in it called "Spindel". I will show you how you can do this as well, but if you have another preference that's fine too. For example, you might want to save into the home folder instead of documents on Linux.
+  // Example
+  cd /home/fredrik/Documents/spindel
 
-Open the CMD/Terminal and navigate to the directory of your choice. The commands that will be used to demonstrate this are dir, ls, cd and mkdir. On the left-hand side of the CMD/Terminal the current directory is displayed. The commands dir(Windows) and ls (Mac/Linux) does the same thing for different OS and shows the current directory's content. cd is a command that changes the current directory with the syntax cd [directory]. For example, if your current directory is C:\Users\fredrik then dir would show a list of all files and folders in your fredrik user folder, one of which would be Documents. If you want to enter Documents, i.e. change your current directory to Documents, you would execute::
+Then, when use the ``clone`` command with git, which downloads or *clones* the project from our repository on Github. So, we need to run::
 
-  cd Documents
+  git clone https://github.com/fsek/app.git
 
-and the left-hand side would change to C:\Users\fredr\Documents. You can always go up one level in the directory tree with cd .. and, in this case, return to C:\Users\fredr. While in Documents you can execute::
-
-  mkdir Spindel
-
-and create a new folder (make a directory) called "Spindel" in Documents. dir should now also show Spindel and cd Spindel will change the current directory to C:\Users\fredr\Documents\Spindel. Note that this will look a bit different for Mac and Linux and C:\Users\fredr\ will be replaced with ~. Now, when you've navigated to the directory you want to clone into, execute::
-
-  git clone [repo cloning link]
-
-and you should see it start downloading files. Note, that you should not keep the parentheses and replace [repo cloning link] with the link. Feel free to start with the next step while you're downloading the files. If you've done everything correctly you should have a new app folder in the directory you chose.
+If you've done everything correctly you should see it start downloading files. After it's done you should have a new ``app`` folder containg all the project files in the directory you chose.
 
 
-======================================
-Creating a custom CMD/Terminal command
-======================================
+==========================
+Installing the enviornment
+==========================
 
-When you've successfully cloned the repo you'll have a local app folder somewhere on your computer containing all the project files. Every time you start working you need to access that specific directory through the CMD/Terminal to host a web server (this will be explained further in Standard workflow). Therefore, it's a good idea to make a custom command that will take you to this directory directly, so you'll avoid navigating there manually every time. How to do this is explained below for different operating systems. Note that this step is optional if you've cloned into, or close to, the home directory and don't mind navigating to the project every time.
+The first thing we need to do after cloning the project is to install the enviornment. First, enter the app directory with::
 
--------
-Windows
--------
+  cd app
 
-First, open the project folder in the file explorer, navigate to the www folder and copy its address from the top. The address should look something like C:\...\app\www. Open notepad, type cd and paste the address. The file should now be looking something like::
+Then run::
 
-  cd C:\...\app\www
+  npm install
 
-Save the file on your desktop as apploc.cmd or with whatever name you see fit. Note that the filename must end with .cmd and have the type All Files (see figure below).
+which will install all required packages for our project. When it's done, execute::
 
-Saving custom command file windows (picture)
+ npm install gulp-cli -g
 
-Now, go back to the file explorer and navigate to your nodejs folder in Program/Program Files. It should have an address close to C:\Program Files\nodejs. Move the apploc.cmd file into that folder and try executing it in CMD by typing apploc and hitting return. If everything works you should see the current directory on the left-hand side change to the project's www folder.
+to get support for *scss*.
 
------------
-Mac & Linux
------------
+==================
+Running the server
+==================
 
-On Mac and Linux you'll do everything through the terminal, so open that up and make sure you're in your home directory. ~ is the notation for the home directory and should be shown as the current directory in the command prompt. Normally you're already in your home directory when you start the terminal, but if not execute the following to go there::
+You have now installed everything and the only thing left to do is to start the server. To do this we simply run::
 
-  cd ~
+  npm start
 
-Then, use ls -a to list all the files in the home directory. Adding the flag -a will show all the files, even the hidden ones which are marked with a dot prefix. After you've run ls you should see a file called .bash_profile on Mac or .bashrc on Linux. If you don't see it you need to create it. You do this with the command touch as shown below::
+This will start the server and all the required services. The first time you start the web server it will ask you if you want to send information to PhoneGap, which we don't. It will also ask for access through your firewall which you should allow. After a few seconds, you should be able to access the server and see the app at http://localhost:3000.
 
-  // Mac
-  touch .bash_profile
-
-  // Linux
-  touch .bashrc
-
-Before we continue with the bash file you need to find the www folder in the app folder you've just cloned and copy its directory path. The easiest way to do this is to find it in Files, enter the www folder, right-click any file or folder inside it, go to Properties and copy the location string. Now, to create a new command you need to define it in the bash file. The best way to do this is by a terminal text editor, like Nano or Vim. You open the file with Nano by entering::
-
-  // Mac
-  nano .bash_profile
-
-  // Linux
-  nano .bashrc
-
-Now, navigate to the bottom of the file (it might be empty) with your arrow keys and add::
-
-  alias apploc='cd [www folder path]'
-
-where [www folder path] is the location string you've just copied. To save the file you first exit by pressing Ctrl-X on your keyboard. It will then ask you if you want to save where you press your y key for yes. Lastly, it will ask you what you want to save it as, which should be .bashrc and already filled in. Then, press enter to save the file. Restart the terminal and try executing apploc. If you've done everything correctly your current directory should now be the www folder.
-
-========================
-Installing a text editor
-========================
-
-To actually start coding you also need a text editor, much like Eclipse for Java. For this project, I would recommend using Sublime Text. Sublime is a solid editor that is very straightforward, easy to set up and is what I use personally. If you have another editor that you prefer, that's perfectly fine too. Whatever editor you end up using just make sure to use our standard and set the tab width to two and indent using spaces (soft tabs). In Sublime you do this by going to Preferences > Settings, which should open a new sublime window with two columns. In the left column, there are the default settings and in the right your own personal settings. In the personal column, you want to add::
-
-  "tab_size": 2,
-  "translate_tabs_to_spaces": true,
-  "ensure_newline_at_eof_on_save": true
-
-Note, that you need to put a comma at the end of each line (except the last one) for the settings to apply.
-
-You have now installed everything that you need to get started. However, before you can continue you also need to be able to write some actual code. The F-app is built with HTML, CSS, and Javascript and if you're not familiar with these languages I would recommend going through some guides/tutorials here. Otherwise, we'll take a look at the Standard workflow.
+You are now offically up and running. Well done! Head over to :ref:`app-standard-workflow` to get started coding or read more about :ref:`app-our-systems` to get a better understanding of the project.

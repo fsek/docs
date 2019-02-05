@@ -6,15 +6,16 @@
 Welcome to F-sek's documentation!
 =================================
 
-This is an amazing documentation!
+This is an amazing documentation! Us oldie but goldie spidermen have documented a lot of our work on our various projects to make our code stand the test of time.
 
 .. toctree::
-   :caption: Documentation:
+  :maxdepth: 2
+  :caption: Documentation:
 
-   ./getting_started/getting_started
-   ./app/app
-   ./web/web
-   git_workflow
-   spiderman_duties
-
+  ./getting_started/getting_started
+  ./app/app
+  ./web/web
+  git_workflow
+  spiderman_duties
+  template
 

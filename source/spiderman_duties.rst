@@ -21,9 +21,13 @@ Steg 2: Klicka ''Ge medlemskap''
 Klar!
 
 
-===============
-Skapa mailalias
-===============
+=================
+Create mail alias
+=================
+
+There is a lot of members that what ot have their own cool mail alias for their blabla in the F-guild. Note that this is only an alias and **not** an new email. These aliases only forward mail to an already excisting email adress. To create a new mail alias you use the website. We can create aliases for name@fsektionen.se or name@farad.nu.
+
+**Step 1**: Log into the website and go to "Administrate" menu and choose "Mail aliases" in the "User" column.
 
 Det är många medlemmar som vill ha egna coola mailalias för sitt engagemang på F-sektionen. Observera dock att detta endast är ett alias och INTE en ny mailadress. Dessa mailalias bara vidarebefodrar till en existerande emailadress som medlemmen äger. Skapa mailalias gör du via hemsidan. Vi kan skapa mailalias för blablabla@fsektionen.se eller blablabla@farad.nu.
 

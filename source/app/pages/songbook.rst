@@ -1,4 +1,3 @@
-
 Songbook
 =========
 
@@ -41,24 +40,17 @@ page. The letter index is then created using the Framework7 object
 
 ::
 
-    var listIndex = app.listIndex.create({
-      el: '.list-index',
-      listEl: '#songbook-list',
-      label: true,
-    });
+  var listIndex = app.listIndex.create({
+    el: '.list-index',
+    listEl: '#songbook-list',
+    label: true,
+  });
 
 
 JS for the individual songs
 -----------------------------
+
 The song objects in the songbook list links to **song/id**. When the song page
 is initialized, the API-endpoint **/songs/id** is called. This returns a JSON
 with the song text and some additional info about the song. The template is then
 created from the JSON information and added to the song page html.
-
-
-
-
-
-
-
-

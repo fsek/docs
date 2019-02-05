@@ -78,7 +78,7 @@ Setting up Git
 You need to configure Git if you have not used it before. Run::
 
   git config --global user.name "Firstname Lastname"
-  git config --global user.email name@domain.com
+  git config --global user.email email@example.com
 
 using the same email as on GitHub.
 
@@ -86,9 +86,9 @@ You are recommended to run the following command to simplify pushes to git::
 
   git config --global push.default current
 
-===========================
-Installing this environment
-===========================
+==========================
+Installing the environment
+==========================
 
 To install the environment you should first clone the repo. Head to your preferred directory and clone. Afterwards you need to install Rails and all the gems required. All these things can be achieved by running the following commands::
 

@@ -1,3 +1,5 @@
+.. _getting-started:
+
 Getting Started
 ===============
 
@@ -6,7 +8,9 @@ Getting started with this platform is fairly simple, but there are a few things 
 If you've installed all the requirements and are new to HTML, CSS and Javascript programming I would recommend going through the information below. Otherwise, visit Standard workflow.
 
 .. toctree::
-   :caption: Learning resoruces:
+  :maxdepth: 2
+  :caption: Learning resoruces:
 
-   learning_git
-   learning_web_prog
+  learning_git
+  learning_web_prog
+  text_editor

@@ -1,5 +1,5 @@
-Installation Guide
-==================
+Mac installation
+================
 
 The environment requires Ruby 2.5.0, a recent version of Postgres and Redis.
 
@@ -13,9 +13,9 @@ Then run::
 
   git clone https://github.com/rbenv/rbenv.git ~/.rbenv
   git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
-  echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
-  echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"' >> ~/.bashrc
-  echo 'eval "$(rbenv init -)"' >> ~/.bashrc
+  echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bash_profile
+  echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"' >> ~/.bash_profile
+  echo 'eval "$(rbenv init -)"' >> ~/.bash_profile
   exec $SHELL
 
 and then install Ruby::
@@ -29,33 +29,17 @@ After this, you should restart your terminal emulator.
 Installing Postgres
 ===================
 
-To install Postgres on a recent version of Ubuntu, it should be enough to run:
+To install Postgres we use Homebrew and it should be enough to run::
 
-sudo apt-get install postgresql postgresql-contrib libpq-dev
-
-If you are using the LTS (Long Term Support) version, you need to run the following commands instead::
-
-  sudo sh -c "echo 'deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main' > /etc/apt/sources.list.d/pgdg.list"
-  wget --quiet -O - http://apt.postgresql.org/pub/repos/apt/ACCC4CF8.asc | sudo apt-key add -
-  sudo apt-get update
-  sudo apt-get install postgresql-common
-  sudo apt-get install postgresql-9.5 libpq-dev
-
-On most other distributions, it's enough to install the postgresql or postgres package. For example, on Arch::
-
-  sudo pacman -S postgresql
+  brew install postgresql
 
 Now, to start postgres::
 
-  sudo systemctl start postgresql
-
-We probably want to make sure postgres starts on startup, like this::
-
-  sudo systemctl enable postgesql
+  brew services start postgresql
 
 To use Postgres with Rails you need to create a user::
 
-  sudo -u postgres createuser <username> -sP
+  createuser <username> -sP
 
 Postgres will then ask you to set a password for the new user.
 
@@ -65,11 +49,7 @@ Installing Redis
 
 Redis can usually be installed with your distribution´s package manager. It's often called either redis-server or just redis. On Ubuntu just run this command::
 
-  sudo apt-get install redis-server
-
-On Arch, you just run::
-
-  sudo pacman -S redis
+  brew install redis-server
 
 ==============
 Setting up Git

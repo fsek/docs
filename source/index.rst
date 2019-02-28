@@ -18,4 +18,3 @@ This is an amazing documentation! Us oldie but goldie spidermen have documented 
   git_workflow
   spiderman_duties
   template
-

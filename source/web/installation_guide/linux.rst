@@ -7,7 +7,16 @@ The environment requires Ruby 2.5.0, a recent version of Postgres and Redis.
 Installing Ruby
 ===============
 
-When installing Ruby it's easiest to first install rbenv and ruby-build. Start by checking that you have the required dependencies for your system.
+When installing Ruby it's easiest to first install rbenv and ruby-build.
+ Start by installing the required dependencies for your system.
+
+If on Ubuntu run the following commands::
+
+  sudo apt update
+  sudo apt install autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm5 libgdbm-dev
+
+On any other Linux distribution just google how to install
+Ruby and find the requirements there.
 
 Then run::
 
@@ -41,7 +50,8 @@ If you are using the LTS (Long Term Support) version, you need to run the follow
   sudo apt-get install postgresql-common
   sudo apt-get install postgresql-9.5 libpq-dev
 
-On most other distributions, it's enough to install the postgresql or postgres package. For example, on Arch::
+On most other distributions, it's enough to install the
+postgresql or postgres package. For example, on Arch::
 
   sudo pacman -S postgresql
 
@@ -63,7 +73,9 @@ Postgres will then ask you to set a password for the new user.
 Installing Redis
 ================
 
-Redis can usually be installed with your distribution´s package manager. It's often called either redis-server or just redis. On Ubuntu just run this command::
+Redis can usually be installed with your distribution´s package manager.
+It's often called either redis-server or just redis.
+On Ubuntu just run this command::
 
   sudo apt-get install redis-server
 
@@ -90,7 +102,10 @@ You are recommended to run the following command to simplify pushes to git::
 Installing the environment
 ==========================
 
-To install the environment you should first clone the repo. Head to your preferred directory and clone. Afterwards you need to install Rails and all the gems required. All these things can be achieved by running the following commands::
+To install the environment you should first clone the repo. Head to your
+preferred directory and clone. Afterwards you need to install Rails and
+all the gems required. All these things can be achieved by running the
+following commands::
 
   cd <preferred folder>
   git clone https://github.com/fsek/web.git
@@ -99,17 +114,22 @@ To install the environment you should first clone the repo. Head to your preferr
   gem install bundle
   bundle install
 
-To run Rails and store data you need to configure the database connection. In the environment root folder there is a file called .env-sample. Copy this file and rename it to .env::
+To run Rails and store data you need to configure the database connection.
+In the environment root folder there is a file called .env-sample.
+Copy this file and rename it to .env::
 
   cp .env-sample .env
 
-Now open the file in your favourite text editor and enter the username and password you chose when creating a Postgres user. Enter the same username and password for both the test and dev environment.
+Now open the file in your favourite text editor and enter the username
+and password you chose when creating a Postgres user. Enter the same
+username and password for both the test and dev environment.
 
 Before you can continue, Rails wants you to generate a "Secret key base". Run::
 
   echo "SECRET_KEY_BASE=$(rails secret)" >> .env
 
-You are now ready to load the database structure into Postgres, and populate it with some example data. Run the following commands::
+You are now ready to load the database structure into Postgres,
+and populate it with some example data. Run the following commands::
 
   rails db:create && rails db:migrate && rails db:seed && rails db:populate_test
 

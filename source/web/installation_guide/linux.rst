@@ -61,7 +61,7 @@ Now, to start postgres::
 
 We probably want to make sure postgres starts on startup, like this::
 
-  sudo systemctl enable postgesql
+  sudo systemctl enable postgresql
 
 To use Postgres with Rails you need to create a user::
 
@@ -82,6 +82,17 @@ On Ubuntu just run this command::
 On Arch, you just run::
 
   sudo pacman -S redis
+
+On Ubuntu we also want to stop a current running redis server, since we want to use it for ourselves. We do this by running::
+
+  sudo systemctl stop redis-server
+
+Redis starts by itself on startup, so we need to stop it like above every we want to use it.
+To prevent it from starting by itself and make our lives easier, we simply run::
+
+  sudo systemctl disable redis-server
+
+This might not be specific for Ubuntu, so if the server doesn't start with ``foreman s`` later on, come back here and disable redis. That might fix it.
 
 ==============
 Setting up Git
@@ -120,11 +131,21 @@ Copy this file and rename it to .env::
 
   cp .env-sample .env
 
-Now open the file in your favourite text editor and enter the username
+Now open the ``.env`` file in your favourite text editor and enter the username
 and password you chose when creating a Postgres user. Enter the same
 username and password for both the test and dev environment.
 
-Before you can continue, Rails wants you to generate a "Secret key base". Run::
+Make sure the ``sidekiq.log`` file exists in the `web/log` directory. You can do this by running::
+
+  ls ./log
+
+and then see if ``sidekiq.log`` shows up. If not we need to create it with::
+
+  touch log/sidekiq.log
+
+otherwise you can continue on.
+
+We also need to generate a "Secret key base" for Rails. Run::
 
   echo "SECRET_KEY_BASE=$(rails secret)" >> .env
 
@@ -141,4 +162,4 @@ To run the server and all the required services simply run the command::
 
   foreman s
 
-After a few seconds, you should be able to access the server at http://localhost:3000.
+After a few seconds, you should be able to access the server at http://localhost:3000. You log in with the email *admin@fsektionen.se* and the password *passpass*.

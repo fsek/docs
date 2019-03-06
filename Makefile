@@ -4,8 +4,8 @@
 # You can set these variables from the command line.
 SPHINXOPTS    = -a
 SPHINXBUILD   = sphinx-build
-SOURCEDIR     = source
-BUILDDIR      = build
+SOURCEDIR     = ./source
+BUILDDIR      = ./build
 
 # Put it first so that "make" without argument is like "make help".
 help:

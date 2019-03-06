@@ -47,7 +47,7 @@ Postgres will then ask you to set a password for the new user.
 Installing Redis
 ================
 
-Redis can usually be installed with your distribution´s package manager. It's often called either redis-server or just redis. On Ubuntu just run this command::
+Redis can usually be installed with your distribution´s package manager. It's often called either redis-server or just redis. Just run this command::
 
   brew install redis-server
 
@@ -83,7 +83,7 @@ To run Rails and store data you need to configure the database connection. In th
 
   cp .env-sample .env
 
-Now open the file in your favourite text editor and enter the username and password you chose when creating a Postgres user. Enter the same username and password for both the test and dev environment.
+Now open the ``.env`` file in your favourite text editor and enter the username and password you chose when creating a Postgres user. Enter the same username and password for both the test and dev environment.
 
 Before you can continue, Rails wants you to generate a "Secret key base". Run::
 
@@ -101,4 +101,4 @@ To run the server and all the required services simply run the command::
 
   foreman s
 
-After a few seconds, you should be able to access the server at http://localhost:3000.
+After a few seconds, you should be able to access the server at http://localhost:3000 You log in with the email *admin@fsektionen.se* and the password *passpass*.

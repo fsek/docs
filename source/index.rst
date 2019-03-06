@@ -15,6 +15,6 @@ This is an amazing documentation! Us oldie but goldie spidermen have documented 
   ./getting_started/getting_started
   ./app/app
   ./web/web
-  git_workflow
+  ./git/git
   spiderman_duties
   template

@@ -11,6 +11,7 @@ If you've installed all the requirements and are new to HTML, CSS and Javascript
   :maxdepth: 2
   :caption: Learning resoruces:
 
-  learning_git
+  how_the_web_works
   learning_web_prog
+  learning_git
   text_editor

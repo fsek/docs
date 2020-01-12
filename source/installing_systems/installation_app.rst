@@ -1,7 +1,7 @@
 .. _app-installation-guide:
 
-Installation Guide
-==================
+App Installation Guide
+======================
 
 ==========================
 Installing a UNIX based OS

@@ -7,8 +7,7 @@ Web stuff
   :maxdepth: 2
   :caption: Contents:
 
-  ./installation_guide/installation_guide
+  ../installing_systems/installation_web/installation_web
   get_started_coding
   naming
   translation_files
-

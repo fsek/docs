@@ -12,7 +12,7 @@ Rails
 
     .. code-block:: ruby
 
-        # web/db/migrate/YYYYMMDDHHMMSS_create_store_products.rb
+        # web/app/db/migrate/YYYYMMDDHHMMSS_create_store_products.rb
         class CreateStoreProducts < ActiveRecord::Migration[5.0]
           def change
             create_table :store_products do |t|
@@ -58,7 +58,7 @@ Rails
 
     .. code-block:: ruby
 
-        # web/config/routes.rb
+        # web/app/config/routes.rb
         namespace :admin do
           resources :store_products, except: [:show], path: :produkter
         end
@@ -214,11 +214,12 @@ Rails
 
     .. code-block:: ruby
 
+        # web/app/models/ability.rb
         can :index, StoreProduct
 
 10. With ``only`` we specify that the only serializer we have implemented is ``Index``.
 
     .. code-block:: ruby
 
-        # web/config/routes.rb
+        # web/app/config/routes.rb
         resources :store_products, only: :index

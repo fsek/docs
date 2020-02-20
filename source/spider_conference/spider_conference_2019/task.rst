@@ -25,7 +25,9 @@ Rails
 
 3. Migrate the database using ``rails db:migrate`` and create a few test products using the Rails console. This console in entered by typing ``rails c``. *Hint:* By typing ``StoreProduct`` in the Rails console you should be able too see all of its fields. This is a good way to test that everything works as expected.
 
-4. Implement an admin ``controller``. Copy and paste the following script and fill in the missing code:
+4. Add an admin route to ``web/config/routes.rb`` by adding a few lines in the "User-related routes" section. The path to the products should be ``/produkter``.
+
+5. Implement an admin ``controller``. Copy and paste the following script and fill in the missing code:
 
     .. code-block:: ruby
 
@@ -75,8 +77,6 @@ Rails
         end
 
    *Hints:* Type ``rails routes | grep store`` to see all paths that have the word ``store`` in it. Make use of the ``store_product_params`` method when creating a new product.
-
-5. Add an admin route to ``web/config/routes.rb`` by adding a few lines in the "User-related routes" section. The path to the products should be ``/produkter``.
 
 6. Create a few basic ``views`` to list and create new products. These ``views`` should be placed in ``web/views/admin/store_products``, namely
 

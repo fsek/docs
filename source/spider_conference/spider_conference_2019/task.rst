@@ -54,7 +54,7 @@ Rails
           end
 
           def update
-            # TODO
+            # TODO. The StoreProduct that is being updated should be named @store_product.
           end
 
           def destroy
@@ -88,7 +88,7 @@ Rails
             index.html.erb
             new.html.erb
 
-    The code for ``edit.html.erb`` can be found here:
+   The code for ``edit.html.erb`` can be found here:
 
     .. code-block:: erb
 
@@ -106,6 +106,8 @@ Rails
           <%= link_to('Alla produkter', admin_store_products_path, class: 'btn secondary') %>
         </div>
 
+   When you have implemented the views, make sure that they work as expected before moving to the next task.
+
 7. Create a ``serializer`` for the products. Copy and paste the following script and implement the missing code:
 
     .. code-block:: ruby
@@ -121,6 +123,7 @@ Rails
 
     .. code-block:: ruby
 
+        # web/app/controllers/api/store_products_controller.rb
         class Api::StoreProductsController < Api::BaseController
           load_permissions_and_authorize_resource
 
@@ -129,6 +132,6 @@ Rails
           end
         end
 
-9. Add the rights to fetch the products for all users in ``abilities``. This file can be found in  ``web/app/models/ability.rb``.
+9. Add the rights to fetch the products for all signed in users in ``abilities``. This file can be found in  ``web/app/models/ability.rb``.
 
 10. Add an API route for the created ``API controller`` in ``routes.rb`` and test that it works.

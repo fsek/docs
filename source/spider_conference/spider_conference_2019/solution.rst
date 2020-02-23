@@ -192,7 +192,7 @@ Rails
         # web/app/serializers/api/store_product_serializer.rb
         class Api::StoreProductSerializer < ActiveModel::Serializer
           class Api::StoreProductSerializer::Index < ActiveModel::Serializer
-            attributes(:name, :price, :in_stock, :image_url)
+            attributes(:id, :name, :price, :in_stock, :image_url)
           end
         end
 

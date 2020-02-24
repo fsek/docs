@@ -1,9 +1,10 @@
 Solution
 ========
 
-This is an example implementation of the F-store. It can also be found in its entirety `here`_ on GitHub.
+This is an example implementation of the F-store. It can also be found in its entirety on GitHub here: `Rails`_, `app`_.
 
-.. _here: https://github.com/fsek/web/compare/david-web-intro-2020
+.. _Rails: https://github.com/fsek/web/commit/064d56d92c8c157bd262a49fddfaa4fb7fecc28f
+.. _app: https://github.com/fsek/app/commit/e04a28f7ccca076002122d6c9f2f9d68dc3c3f6e
 
 Rails
 -----
@@ -223,3 +224,339 @@ Rails
 
         # web/app/config/routes.rb
         resources :store_products, only: :index
+
+App
+---
+
+1. We create the files ``app/www/store.html``, ``app/www/scss/partials/_store.scss`` and ``app/www/js/store.js``. The JS and SCSS files are loaded by adding the respective lines.
+
+    .. code-block:: html
+
+        <!-- app/www/index.html -->
+        <script type="text/javascript" src="js/store.js"></script>
+
+    .. code-block:: scss
+
+        // app/www/scss/index.scss
+        @import 'partials/store';
+
+2. The route is added by specifing a ``name`` and ``path`` to the new page, as well as an ``url`` to the HTML file it should render.
+
+    .. code-block:: js
+
+        // app/www/js/index.js
+        var alternativesView = app.views.create('#view-alternatives', {
+          routesAdd: [
+            // {
+                // ... Other routes
+            // },
+            {
+              name: 'store',
+              path: '/store/',
+              url: './store.html',
+            },
+            // {
+                // ... Even more routes
+            // }
+          ]
+        });
+
+3. Here it is important that the ``data-name`` is the ``name`` we defined in the routes, i.e. ``store``.
+
+    .. code-block:: html
+
+        <!-- app/www/store.html -->
+        <div data-name="store" class="page no-toolbar">
+          <div class="navbar">
+            <div class="navbar-inner sliding">
+              <div class="left">
+                <a href="#" class="back link">
+                  <i class="icon icon-back"></i>
+                  <span class="ios-only">Tillbaka</span>
+                </a>
+              </div>
+              <div class="title">F-shoppen</div>
+            </div>
+          </div>
+          <div class="page-content store-content">
+            <div class="infinite-scroll-preloader">
+              <div class="preloader"></div>
+            </div>
+          </div>
+        </div>
+
+4. Here the navigation is added to the top of the alternatives view list.
+
+    .. code-block:: html
+
+        <!-- app/www/index-html -->
+        <div id="view-alternatives" class="view tab">
+          <div data-name="alternatives" class="page">
+            <div class="navbar android-hide">
+              <div class="navbar-inner sliding">
+                <div class="title">Alternativ</div>
+              </div>
+            </div>
+            <div class="page-content settings-content">
+              <div class="list">
+                <ul>
+                  <li>
+                    <a href="/store/" class="item-link">
+                      <div class="item-content">
+                        <div class="item-inner">
+                          <div class="item-title">F-shoppen</div>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+                  <!--
+                    ... Another list item
+                  //-->
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+5. We can catch the ``page::init`` event when it's called on the page where ``data-name="store"`` by doing the following:
+
+    .. code-block:: js
+
+        // app/www/js/store.js
+        $$(document).on('page:init', '.page[data-name="store"]', function () {
+          console.log('Spodermon iz kewl');
+        });
+
+6. Our JS file can now look like:
+
+    .. code-block:: js
+
+        // app/www/js/store.js
+        $$(document).on('page:init', '.page[data-name="store"]', function () {
+          let storeProductAPIEndpointURL = API + '/store_products';
+
+          $.getJSON(storeProductAPIEndpointURL)
+            .done(function(resp) {
+              initStore(resp);
+            })
+            .fail(function(resp) {
+              console.log(resp.statusText);
+            });
+
+          function initStore(resp) {
+            console.log(resp);
+          }
+        });
+
+   Here we have used the global variable ``API`` to define our URL. The value of ``API`` is defined in ``app/www/js/index.js``.
+
+7. Here we create a simple template with the ``id`` ``storeTemplate``
+
+    .. code-block:: html
+
+        <!-- app/www/index.html -->
+        <script type="text/template7" id="storeTemplate">
+          Welcome to the F-store!
+        </script>
+
+   and can test if it works by extending our JS file to:
+
+    .. code-block:: js
+
+        // app/www/js/store.js
+        $$(document).on('page:init', '.page[data-name="store"]', function () {
+          let storeProductAPIEndpointURL = API + '/store_products';
+
+          $.getJSON(storeProductAPIEndpointURL)
+            .done(function(resp) {
+              initStore(resp);
+            })
+            .fail(function(resp) {
+              console.log(resp.statusText);
+            });
+
+          function initStore(resp) {
+            let templateHTML = app.templates.storeTemplate();
+            let storeContainer = $('.store-content');
+            storeContainer.html(templateHTML);
+          }
+        });
+
+   Here we first get the HTML code of template and then put it into ``<div class="page-content store-content"></div>`` in ``app/www/store.html``.
+
+8. An example template:
+
+    .. code-block:: bash
+
+        <!-- app/www/index.html -->
+        <script type="text/template7" id="storeTemplate">
+          {{#each products}}
+            <div class="card">
+              <div class="card-header" style="background-image: url({{image_url}})"></div>
+              <div class="card-content card-content-padding">
+                <div class="product-name">{{name}}</div>
+                Pris: {{price}} kr
+                <button data-id="{{id}}" class="button button-fill buy-product">Köp</button>
+              </div>
+            </div>
+          {{/each}}
+        </script>
+
+   We can loop over the products and set the price to be in Swedish Kronor as:
+
+    .. code-block:: js
+
+        // app/www/js/store.js
+        function initStore(resp) {
+          let products = resp.store_products;
+          products.forEach(function(product) {
+            product.price /= 100;
+            if (product.image_url === "") {
+              product.image_url = "img/missing_thumb.png";
+            }
+          });
+
+          let templateHTML = app.templates.storeTemplate({products: products});
+          let storeContainer = $('.store-content');
+          storeContainer.html(templateHTML);
+        }
+
+   Here we also set the image to be our standard missing thumbnail image if the product does not have an ``image_url``.
+
+9. Here we catch the ``on`` ``click`` event, get the product ``id`` from the template and call the ``buyProduct`` function.
+
+    .. code-block:: js
+
+        // app/www/js/store.js
+        function initStore(resp) {
+          let products = resp.store_products;
+          products.forEach(function(product) {
+            product.price /= 100;
+            if (product.image_url === "") {
+              product.image_url = "img/missing_thumb.png";
+            }
+          });
+
+          let templateHTML = app.templates.storeTemplate({products: products});
+          let storeContainer = $('.store-content');
+          storeContainer.html(templateHTML);
+
+          $('.buy-product').on('click', function() {
+            productId = $('.buy-product').attr('data-id');
+            buyProduct(productId);
+          });
+        }
+
+        function buyProduct(id) {
+          $.ajax({
+            url: API + '/store_orders',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+              "item": {
+                "id": id,
+                "quantity": 1
+              }
+            },
+            success: function(resp) {
+              app.dialog.alert(resp.success, 'Varan är köpt');
+            },
+            error: function(resp) {
+              app.dialog.alert(resp.responseJSON.error);
+            }
+          });
+        }
+
+10. SCSS code and the complete JS file:
+
+    .. code-block:: bash
+
+        // app/www/scss/partials/_store.scss
+        .store-content {
+          .card:nth-child(-n+2) {
+            margin-top: 16px;
+          }
+
+          .card {
+            width: calc(50% - 18px);
+            float: left;
+            box-shadow: none;
+            margin-left: 8px
+          }
+
+          .card-header {
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-color: #f8f8f8;
+            height: 37vh;
+          }
+
+          .card-content {
+            text-align: center;
+          }
+
+          .product-name {
+            font-size: 19px;
+            font-weight: bold;
+          }
+
+          .buy-product {
+            background-color: $fsek-orange;
+            margin-top: 10px;
+          }
+        }
+
+    .. code-block:: js
+
+        // app/www/js/store.js
+        $$(document).on('page:init', '.page[data-name="store"]', function () {
+          let storeProductAPIEndpointURL = API + '/store_products';
+
+          $.getJSON(storeProductAPIEndpointURL)
+            .done(function(resp) {
+              initStore(resp);
+            })
+            .fail(function(resp) {
+              console.log(resp.statusText);
+            });
+
+          function initStore(resp) {
+            let products = resp.store_products;
+            products.forEach(function(product) {
+              product.price /= 100;
+              if (product.image_url === "") {
+                product.image_url = "img/missing_thumb.png";
+              }
+            });
+
+            let templateHTML = app.templates.storeTemplate({products: products});
+            let storeContainer = $('.store-content');
+            storeContainer.html(templateHTML);
+
+            $('.buy-product').on('click', function() {
+              productId = $('.buy-product').attr('data-id');
+              buyProduct(productId);
+            });
+          }
+
+          function buyProduct(id) {
+            $.ajax({
+              url: API + '/store_orders',
+              type: 'POST',
+              dataType: 'json',
+              data: {
+                "item": {
+                  "id": id,
+                  "quantity": 1
+                }
+              },
+              success: function(resp) {
+                app.dialog.alert(resp.success, 'Varan är köpt');
+              },
+              error: function(resp) {
+                app.dialog.alert(resp.responseJSON.error);
+              }
+            });
+          }
+        });

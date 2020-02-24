@@ -135,3 +135,83 @@ Rails
 9. Add the rights to fetch the products for all signed in users in ``abilities``. This file can be found in  ``web/app/models/ability.rb``.
 
 10. Add an API route for the created ``API controller`` in ``routes.rb`` and test that it works.
+
+App
+---
+
+0. Replace line 9 in ``app/www/index.html`` with:
+
+    .. code-block:: html
+
+        <!-- app/www/index.html -->
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://stage.fsektionen.se https://fsektionen.se wss://fsektionen.se wss://stage.fsektionen.se gap://ready 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; child-src 'self' https://www.youtube.com gap://ready; media-src *; img-src * 'self' https://stage.fsektionen.se https://fsektionen.se data:" />
+
+1. Create a HTML, SCSS and JS file for the F-store. Don't forget to load the JS file in ``index.html`` and the SCSS file in ``index.scss``. Copy and paste the following outline of the JS file to the newly created one:
+
+    .. code-block:: js
+
+        // app/www/js/store.js
+        $$(document).on('', '', function () {       // TODO
+          let storeProductAPIEndpointURL = '';      // TODO
+
+          $.getJSON(storeProductAPIEndpointURL)
+            .done(function(resp) {
+              initStore(resp);
+            })
+            .fail(function(resp) {
+              console.log(resp.statusText);
+            });
+
+          function initStore(resp) {
+            // TODO
+          }
+        });
+
+   This is the general structure of our JS files. We first fetch the data and then send it to a function called ``initSomething`` where we handle the rest. Note that the other files don't need to contain any code at this point.
+
+2. Add routes to the store in the alternatives view. The ``name`` should be ``store`` and ``url`` should be the relative path to the created HTML file. The routes are defined in ``index.js``.
+
+3. Implement the created HTML file similarly to the other pages. Remember to set the ``date-name`` to the ``name`` you defined in the routes in the previous task, i.e. ``store``.
+
+4. Add navigation to the new page in the alternatives tab. This is done by adding a few lines of code to the ``<div id="view-alternatives" class="view tab"></div>`` in ``index.html``. The ``<a>`` tag should referene to the path you defined in the routes in task 2.
+
+5. Catch the ``page:init`` event in the created JS file. Make sure that it works by logging ``Spodermon iz kewl``.
+
+6. Fetch data from the API endpoint called ``store_products`` and log it.
+
+7. Create a template in ``index.html`` and test that it works. The latter is done by calling the template in the JS file and storing the HTML code in the store container. Note that the template does not have to handle potential input data, it should only be able to be used correctly.
+
+8. Edit the template such that it generates a store. The page should make use of `Framework7 Cards`_ to display information about the products. On the cards there should be a button where one should be able to purchase the product. Remember that the price of the products are in Swedish Öre.
+
+9. Create an ``onClick`` event for the buy button that makes a ``POST`` request to ``https://stage.fsektionen.se/api/store_orders`` to be able to purchase the product. This should be done by calling the following function with the product ``id`` as the input argument:
+
+    .. code-block:: js
+
+        // app/www/js/store.js
+        function buyProduct(id) {
+          $.ajax({
+            url: '',                    // TODO
+            type: '',                   // TODO
+            dataType: 'json',
+            data: {},                   // TODO
+            success: function(resp) {
+              app.dialog.alert(resp.success, 'Varan är köpt');
+            },
+            error: function(resp) {
+              app.dialog.alert(resp.responseJSON.error);
+            }
+          });
+        }
+
+   Make sure that the ``POST`` request is successful. The data of the ``POST`` request should contain an ``item`` object with ``id`` and ``quantity`` as data. Below you can find an example of the structure of the data.
+
+    .. code-block:: bash
+
+        "item": {
+            "id": 1,
+            "quantity": 1
+        }
+
+10. Style the page so it looks fresh.
+
+.. _Framework7 Cards: https://framework7.io/docs/cards.html

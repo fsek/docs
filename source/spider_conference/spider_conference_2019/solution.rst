@@ -55,7 +55,7 @@ Rails
 
    into the Rails console.
 
-4. The ``except`` statement can be used if some methods are not implemented in the ``controller``, which in this case is the ``show`` action.
+4. Here, the admin path to the products will become ``/admin/store_products``. The ``except`` statement can be used if some methods are not implemented in the ``controller``, which in this case is the ``show`` action.
 
     .. code-block:: ruby
 
@@ -218,7 +218,7 @@ Rails
         # web/app/models/ability.rb
         can :index, StoreProduct
 
-10. With ``only`` we specify that the only serializer we have implemented is ``Index``.
+10. Here, the API path will become ``/api/store_products``. With ``only`` we specify that the only method we have implemented in the ``API controller`` is ``index``.
 
     .. code-block:: ruby
 

@@ -25,7 +25,7 @@ Rails
 
 3. Migrate the database using ``rails db:migrate`` and create a few test products using the Rails console. This console in entered by typing ``rails c``. *Hint:* By typing ``StoreProduct`` in the Rails console you should be able too see all of its fields. This is a good way to test that everything works as expected.
 
-4. Add an admin route to ``web/config/routes.rb`` by adding a few lines in the "User-related routes" section. The path to the products should be ``/produkter``.
+4. Add an admin route to ``web/config/routes.rb`` by adding a few lines in the "User-related routes" section. The path to the products should be ``/produkter``. You have successfully set up the route if you get an ``uninitialized constant`` error when going to ``tcp://localhost:3000/admin/produkter``.
 
 5. Implement an admin ``controller``. Copy and paste the following script and fill in the missing code:
 
@@ -134,7 +134,7 @@ Rails
 
 9. Add the rights to fetch the products for all signed in users in ``abilities``. This file can be found in  ``web/app/models/ability.rb``.
 
-10. Add an API route for the created ``API controller`` in ``routes.rb`` and test that it works.
+10. Add an API route for the created ``API controller`` in ``routes.rb`` and test that it works. The path will become what you write after ``resources``, e.g. ``tcp://localhost:3000/api/songs``. *Hint:* By removing ``load_permissions_and_authorize_resource`` from the ``API controller`` you can fetch the data without being logged in, allowing you to simply test your ``API controller`` and ``serializer``.
 
 App
 ---
@@ -181,7 +181,7 @@ App
 
 7. Create a template in ``index.html`` and test that it works. The latter is done by calling the template in the JS file and storing the HTML code in the store container. Note that the template does not have to handle potential input data, it should only be able to be used correctly.
 
-8. Edit the template such that it generates a store. The page should make use of `Framework7 Cards`_ to display information about the products. On the cards there should be a button where one should be able to purchase the product. Remember that the price of the products are in Swedish Öre.
+8. Edit the template such that it generates a store. The page should make use of `Framework7 Cards`_ to display information about the products. On the cards there should be a button where one should be able to purchase the product. Remember that the price of the products are in Swedish Öre. *Hint:* Scroll down on the Framework 7 Cards documentation to see some examples.
 
 9. Create an ``onClick`` event for the buy button that makes a ``POST`` request to ``https://stage.fsektionen.se/api/store_orders`` to be able to purchase the product. This should be done by calling the following function with the product ``id`` as the input argument:
 

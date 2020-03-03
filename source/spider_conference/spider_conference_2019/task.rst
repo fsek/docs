@@ -146,7 +146,7 @@ App
         <!-- app/www/index.html -->
         <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://stage.fsektionen.se https://fsektionen.se wss://fsektionen.se wss://stage.fsektionen.se gap://ready 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; child-src 'self' https://www.youtube.com gap://ready; media-src *; img-src * 'self' https://stage.fsektionen.se https://fsektionen.se data:" />
 
-1. Create a HTML, SCSS and JS file for the F-store. Don't forget to load the JS file in ``index.html`` and the SCSS file in ``index.scss``. Copy and paste the following outline of the JS file to the newly created one:
+1. Create a HTML, SCSS and JS file for the F-store. Don't forget to load the JS file in ``index.html`` and the SCSS file in ``index.scss``. Note that the JS file cannot be loaded before a few basic JS files have been loaded. Copy and paste the following outline of the JS file to the newly created one:
 
     .. code-block:: js
 

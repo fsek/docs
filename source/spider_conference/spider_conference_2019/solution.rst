@@ -318,7 +318,7 @@ App
           </div>
         </div>
 
-5. We can catch the ``page::init`` event when it's called on the page where ``data-name="store"`` by doing the following:
+5. We can catch the ``page:init`` event when it's called on the page where ``data-name="store"`` by doing the following:
 
     .. code-block:: js
 

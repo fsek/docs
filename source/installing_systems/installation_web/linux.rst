@@ -138,6 +138,7 @@ following commands::
   bundle install
 
 If bundle install throws an error then run the follwing command first (observed on WSL version 1)::
+
   gem update --system
   bundle install
 

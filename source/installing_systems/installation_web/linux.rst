@@ -55,13 +55,21 @@ postgresql or postgres package. For example, on Arch::
 
   sudo pacman -S postgresql
 
-Now, to start postgres::
+Now, to start postgres on Ubuntu computers::
 
   sudo systemctl start postgresql
+  
+If you are using WSL (version 1)::
+
+  sudo service postgresql start
+  
+This is because WSL version 1 does not use systemd and can therefore not use systemctl.
 
 We probably want to make sure postgres starts on startup, like this::
 
   sudo systemctl enable postgresql
+  
+I have not found a nice way to get postgresql to autostart on WSL.
 
 To use Postgres with Rails you need to create a user::
 
@@ -86,6 +94,10 @@ On Arch, you just run::
 On Ubuntu we also want to stop a current running redis server, since we want to use it for ourselves. We do this by running::
 
   sudo systemctl stop redis-server
+  
+If you are using WSL (version 1)::
+
+  sudo service redis-server stop
 
 Redis starts by itself on startup, so we need to stop it like above every we want to use it.
 To prevent it from starting by itself and make our lives easier, we simply run::
@@ -123,6 +135,10 @@ following commands::
   cd web
 
   gem install bundle
+  bundle install
+
+If bundle install throws an error then run the follwing command first (observed on WSL version 1)::
+  gem update --system
   bundle install
 
 To run Rails and store data you need to configure the database connection.

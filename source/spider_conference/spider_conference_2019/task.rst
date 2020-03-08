@@ -181,9 +181,9 @@ App
 
 7. Create a template in ``index.html`` and test that it works. The latter is done by calling the template in the JS file and storing the HTML code in the store container. Note that the template does not have to handle potential input data, it should only be able to be used correctly.
 
-8. Edit the template such that it generates a store. The page should make use of `Framework7 Cards`_ to display information about the products. On the cards there should be a button where one should be able to purchase the product. Remember that the price of the products are in Swedish Öre. *Hint:* Scroll down on the Framework 7 Cards documentation to see some examples.
+8. Edit the template such that it generates a store. The page should make use of `Framework7 Cards`_ to display information about the products. On the cards there should be a button where one should be able to purchase the product. Each button should have a data attribute where the ``id`` of the product is stored. In this case the attribute will be named ``data-id``. Remember that the price of the products are in Swedish Öre. *Hint:* Scroll down on the Framework 7 Cards documentation to see some examples.
 
-9. Create an ``onClick`` event for the buy button that makes a ``POST`` request to ``https://stage.fsektionen.se/api/store_orders`` to be able to purchase the product. This should be done by calling the following function with the product ``id`` as the input argument:
+9. Catch the ``click`` event when a buy button has been clicked using the jQuery method ``on()``. This code should be placed inside the ``initStore`` function. When the button has been clicked, it should make a ``POST`` request to ``https://stage.fsektionen.se/api/store_orders``. This should be done by calling the following function with the product ``id``, which one can get from the data attribute of the button, as the input argument:
 
     .. code-block:: js
 

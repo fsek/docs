@@ -423,7 +423,7 @@ App
 
    Here we also set the image to be our standard missing thumbnail image if the product does not have an ``image_url``.
 
-9. Here we catch the ``on`` ``click`` event, get the product ``id`` from the template and call the ``buyProduct`` function.
+9. Here we catch the ``click`` event, get the product ``id`` from the button and call the ``buyProduct`` function. The ``$(this)`` is needed to get the correct ``data-id``.
 
     .. code-block:: js
 
@@ -442,7 +442,8 @@ App
           storeContainer.html(templateHTML);
 
           $('.buy-product').on('click', function() {
-            productId = $('.buy-product').attr('data-id');
+            buyBtn = $(this);
+            productId = buyBtn.attr('data-id');
             buyProduct(productId);
           });
         }
@@ -535,7 +536,8 @@ App
             storeContainer.html(templateHTML);
 
             $('.buy-product').on('click', function() {
-              productId = $('.buy-product').attr('data-id');
+              buyBtn = $(this);
+              productId = buyBtn.attr('data-id');
               buyProduct(productId);
             });
           }

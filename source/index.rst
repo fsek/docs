@@ -19,4 +19,5 @@ This is an amazing documentation! Us oldie but goldie spidermen have documented 
   ./git/git
   ./spider_conference/spider_conference
   spiderman_duties
+  rostsystem
   template

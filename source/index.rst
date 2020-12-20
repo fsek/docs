@@ -17,6 +17,7 @@ This is an amazing documentation! Us oldie but goldie spidermen have documented 
   ./app/app
   ./web/web
   ./git/git
+  ./examples/examples
   ./spider_conference/spider_conference
   spiderman_duties
   rostsystem

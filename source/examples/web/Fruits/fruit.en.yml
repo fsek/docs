@@ -1,0 +1,12 @@
+---
+en:
+  activerecord:
+    models:
+      fruit:
+        one: Fruit
+        other: Fruits
+    attributes:
+      fruit:
+        user: User
+        name: Name
+        isMoldy: Moldy?

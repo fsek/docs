@@ -110,6 +110,22 @@ which will install all required packages for our project. When it's done, execut
 
 to get support for *scss*.
 
+.. note::
+  On newer versions of macOS (High Sierra or later) you might need to perform some extra steps.
+
+  CocoaPods needs to be installed and setup.
+  In ``/app`` run::
+    sudo gem install cocoapods
+    pod setup
+  To avoid more manual setup use Node version ``11.x``.
+  In the current setup Node versions ``12.x``, ``13.x``, ``14.x`` and ``15.x`` all require different workarounds on macOS.
+
+  You will also need to
+  clear and reinstall the phonegap push plugin for ios::
+    rm -r plugins/phonegap-plugin-push
+    phonegap cordova platform rm ios
+    phonegap cordova platform add ios
+
 ==================
 Running the server
 ==================

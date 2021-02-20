@@ -302,6 +302,7 @@ Through the ``index`` method we want to retrieve all the fruits that belong to t
 the ``includes`` method as we already have defined the relation between a user and their fruits with Associations. 
 Unlike the admin controller, there is the ``show`` method, which will be used to show a single fruit. *Is it necessary to define?*
 
+
 ================
 Design the views
 ================
@@ -362,7 +363,6 @@ Using ``fruit.input`` we define what attributes we would like the form to ask fo
 the user has to press when done. The button label depends on the occurring action; if the form is used to create a fruit 
 it will say “Skapa Frukt”, or to edit a fruit it will say “Uppdatera Frukt”. Clicking this button runs either ``create`` or ``update`` in 
 the controller. 
-
 Next to it there will be a button which redirects back to the index page.
 
 New

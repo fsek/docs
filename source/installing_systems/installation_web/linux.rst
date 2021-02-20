@@ -7,6 +7,9 @@ The environment requires Ruby 2.5.0, a recent version of Postgres and Redis.
 Installing Ruby
 ===============
 
+Ubuntu
+------
+
 When installing Ruby it's easiest to first install rbenv and ruby-build.
  Start by installing the required dependencies for your system.
 
@@ -33,6 +36,52 @@ and then install Ruby::
   rbenv global 2.5.0
 
 After this, you should restart your terminal emulator.
+
+Arch
+----
+
+If using Arch, it is easier to use rvm instead of rbenv. rvm requires some packages to work which can be installed by running::
+
+  sudo pacman -S base-devel tar gzip diffutils git curl
+
+ Download the installation script by running::
+
+  curl -L get.rvm.io > rvm-install
+
+then run the script::
+
+  bash < ./rvm-install
+
+and restart your terminal (recommended) or source your .bash_profile by running::
+
+  source ~/.bash_profile
+
+Now confirm that rvm installed successfully by running::
+
+  type rvm | head -n1
+
+which should print::
+
+  rvm is a function
+
+If this is not printed, restart your terminal and try again. If it is still not working, make sure the following line has been added to ~/.bash_profile::
+
+  [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+
+Now run::
+
+  rvm notes
+
+too check if the function is working properly. Then run::
+
+  rvm requirements
+
+to install any other dependencies required by rvm. Now run::
+
+  rvm install 2.5.0
+  rvm use 2.5.0 --default
+
+to install and use the correct ruby version.
 
 ===================
 Installing Postgres

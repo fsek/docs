@@ -15,7 +15,7 @@ Before we begin writing any code we must think about the general properties of a
 .. image:: Fruits/fruits.png
   :width: 600px
 
-So, generally we want to create a fruit object described by the two parameters name, a string, and isMoldy, 
+So, generally we want to create a fruit object described by the two parameters name, a string, and is_moldy, 
 a boolean. The fruit is connected to a user of whom it’s owned by. A user can own many fruits, but a fruit 
 cannot be shared between users. These kinds of relations are important to keep track of. 
 
@@ -57,7 +57,7 @@ Here we will specify what parameters there are.
     :language: ruby
 
 We are saying that each fruit inhabits a name and degree of moldiness, neither of which can be empty (``null``), 
-and is connected to a certain user. We have set the default value of ``isMoldy`` to false, as we would expect 
+and is connected to a certain user. We have set the default value of ``is_moldy`` to false, as we would expect 
 a new fruit to be fresh.
 
 When this is finished we go to the terminal and run
@@ -85,7 +85,7 @@ and a fruit to be owned by a single user, we use the line ``belongs_to`` which d
 ``belongs_to`` is an Association that makes the creation and deletion of objects smoother. 
 
 The ``validates :name, presence true`` line ensures that a fruit only can be created if it is given a name. 
-Same goes for ``isMoldy``. But how come we don’t write ``validates :isMoldy, presence: true``? Doing so will 
+Same goes for ``is_moldy``. But how come we don’t write ``validates :is_moldy, presence: true``? Doing so will 
 lead to some bugs when creating a fruit. Read the documentation for ``validates``:
 
 *If you want to validate the presence of a boolean field (where the real values are true and false), 
@@ -110,13 +110,13 @@ to enter the Rails console. We copy the situation in the top illustration by run
 
 ::
 
-  Fruit.create!(user_id: 1, name: “Banana”, isMoldy: false)
+  Fruit.create!(user_id: 1, name: “Banana”, is_moldy: false)
 
 and
 
 ::
 
-  Fruit.create!(user_id: 1, name: “Apple”, isMoldy: true)
+  Fruit.create!(user_id: 1, name: “Apple”, is_moldy: true)
 
 The user with user_id: 1 (Hilbert Admin-älg) now owns two fruits. You can run 
 
@@ -149,8 +149,8 @@ user_id as a parameter, we will create the fruits directly through the user
 
 ::
 
-  User.first.fruits.create!(name: “Banana”, isMoldy: false)
-  User.first.fruits.create!(name: “Apple”, isMoldy: true)
+  User.first.fruits.create!(name: “Banana”, is_moldy: false)
+  User.first.fruits.create!(name: “Apple”, is_moldy: true)
 
 Then calling 
 
@@ -177,6 +177,12 @@ and only admins to be able to create and delete fruits. We will therefore write
     namespace :admin do
       resources :fruits, path: :frukter, except: :show
     end
+
+and under the api namespace (``namespace :api``), add:
+
+  .. code-block:: ruby
+
+    resources :fruits, path: :frukter, only: [:index, :show]
 
 We can view all the available fruit-paths by running 
 
@@ -259,8 +265,8 @@ fruit model to the database table. The method returns either ``true`` or ``false
 
 **Try it out!**
 What happens when running ``Fruit.new`` in the Rails console? What happens when running 
-``Fruit.new(id: 100, user_id: 1, name: “Orange”, isMoldy: true)``? Do these commands affect the 
-outcome of ``Fruit.all`` (the contents of the database table)? Try instead running ``Fruit.new(id: 100, user_id: 1, name: “Orange”, isMoldy: true).save``, 
+``Fruit.new(id: 100, user_id: 1, name: “Orange”, is_moldy: true)``? Do these commands affect the 
+outcome of ``Fruit.all`` (the contents of the database table)? Try instead running ``Fruit.new(id: 100, user_id: 1, name: “Orange”, is_moldy: true).save``, 
 and see what happens :-).
 
 redirect_to
@@ -302,6 +308,26 @@ Through the ``index`` method we want to retrieve all the fruits that belong to t
 the ``includes`` method as we already have defined the relation between a user and their fruits with Associations. 
 Unlike the admin controller, there is the ``show`` method, which will be used to show a single fruit. *Is it necessary to define?*
 
+
+The API controller
+------------------------
+
+This controller is located at **web/app/controllers/api/fruits_controller.rb**. The controller has a very similar structure
+to the other two but the logic in the functions differ a bit:
+
+  .. literalinclude:: Fruits/api_fruits_controller.rb
+    :language: ruby
+
+
+The requested objects are found exactly as in the **regular** controller through ``Fruit.all`` or ``Fruit.find`` but to then send it to
+the app or any other external source it needs to be formatted in a standardised manner. The format used for our API is json and to define
+how the formatting should be done and what attributes of the object to send, a serializer is used.
+
+The serializer is located at **web/app/serializers/api/fruit_serializer.rb** and can define multiple formats for different use cases. We
+usually define these formats as subclasses with the same name as the method they are used in:
+
+  .. literalinclude:: Fruits/fruit_serializer.rb
+    :language: ruby
 
 ================
 Design the views
@@ -471,6 +497,6 @@ Read more
 * `Associations <https://guides.rubyonrails.org/association_basics.html>`_
 * `Routes <https://guides.rubyonrails.org/routing.html>`_
 * `Controllers <https://guides.rubyonrails.org/action_controller_overview.html>`_
-* **`Inheritance in Rails Controllers <https://rmulhol.github.io/ruby/2015/04/27/solid-rails.html>`_
+* `Inheritance in Rails Controllers <https://rmulhol.github.io/ruby/2015/04/27/solid-rails.html>`_
 * `Rails rendering <https://www.rubyguides.com/2019/04/rails-render/>`_
-* **`Parameters <https://www.rubyguides.com/2019/06/rails-params/>`_
+* `Parameters <https://www.rubyguides.com/2019/06/rails-params/>`_

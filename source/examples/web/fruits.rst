@@ -300,7 +300,8 @@ quite in-depth we’ll write out the complete controller directly:
 
 Through the ``index`` method we want to retrieve all the fruits that belong to the user. We are able to do so using 
 the ``includes`` method as we already have defined the relation between a user and their fruits with Associations. 
-Unlike the admin controller, there is the ``show`` method, which will be used to show a single fruit. *Why is it necessary to define?*
+Unlike the admin controller, there is the ``show`` method, which will be used to show a single fruit. *Is it necessary to define?*
+
 
 ================
 Design the views
@@ -324,8 +325,8 @@ which all previously have been referred to, one way or another.
 Index
 *****
 
-This page will list all existing fruits in a table. As we initialized the variable ``@fruits = initialize_grid(Fruit)`` 
-in the ``index`` method, we can easily create a table using the grid method.
+This page will list all existing fruits in a neat table. As we initialized the variable ``@fruits = initialize_grid(Fruit)`` 
+in the ``index`` method, we can easily create a table using the grid method from the Ruby gem *wice_grid*. 
 
   .. literalinclude:: Fruits/admin_index.html.erb
     :language: html+erb
@@ -340,7 +341,7 @@ define the content of each column. In the first column we put the fruit owner by
 unique for having ``attribute: ‘user_id’`` as a parameter, which will automatically render a field to filter the grid rows 
 according to the user’s name.
 
-The third and fourth columns link to ``edit`` and ``delete`` methods for the fruit respectively. For the delete link we must 
+The third and fourth columns link to ``edit`` and ``delete`` for the fruit respectively. For the delete link we must 
 have ``method: :delete`` as a parameter to specify that we want to delete the fruit. For ``edit`` we use the 
 pre-existing path ``edit_admin_fruit``. Here we can see why there is no need to define an ``edit`` method in the controller.
 In the index file there exists the ``fruit`` variable which points to each and every Fruit object. Through ``edit_admin_fruit_path(fruit)`` 
@@ -352,16 +353,17 @@ for creating a new fruit.
 Form
 ****
 
-The form is used both for creating and editing fruits. 
+The form is used both for creating and editing fruits. The form is what's called a *partial* since it will be rendered within other view files. 
+This file is therefore named with an underscore, **_form.erb**.
 
   .. literalinclude:: Fruits/admin_form.html.erb
     :language: html+erb
 
 Using ``fruit.input`` we define what attributes we would like the form to ask for. ``fruit.button :submit`` renders a button 
 the user has to press when done. The button label depends on the occurring action; if the form is used to create a fruit 
-it will say “Skapa Frukt”, or to edit a fruit it will say “Uppdatera Frukt”.
-
-Next to it there will be a button which redirects back to the fruit index page.
+it will say “Skapa Frukt”, or to edit a fruit it will say “Uppdatera Frukt”. Clicking this button runs either ``create`` or ``update`` in 
+the controller. 
+Next to it there will be a button which redirects back to the index page.
 
 New
 ***
@@ -369,7 +371,8 @@ New
   .. literalinclude:: Fruits/admin_new.html.erb
     :language: html+erb
 
-As mentioned, both **new** and **edit** will make use of the form. 
+As mentioned, both **new** and **edit** will make use of the form. ``fruit: @fruit`` makes ``@fruit`` accessible in the form 
+as the variable ``fruit``.
 
 Edit
 ****
@@ -416,6 +419,9 @@ On the show page we simply render the fruit’s name and a description of its mo
 Write the translations
 ======================
 
+Every string we wish to be available in both English and Swedish, we have to define in files found in 
+**web/config/locales**.
+
 Views
 -----
 
@@ -424,8 +430,6 @@ Views
 
   .. literalinclude:: Fruits/fruits.sv.yml
     :language: yaml
-
-  .. code-block:: YAML
 
   .. literalinclude:: Fruits/fruits_admin.en.yml
     :language: yaml

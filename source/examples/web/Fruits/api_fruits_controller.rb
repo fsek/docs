@@ -4,12 +4,12 @@ class Api::FruitsController < Api::BaseController
   def index
     @fruits = Fruit.all
     render json: @fruits,
-    each_serializer: Api::FruitSerializer::Index # Returns id, title and author
+    each_serializer: Api::FruitSerializer::Index
   end
 
   def show
     @fruit = Fruit.find(params[:id])
     render json: @fruit,
-    serializer: Api::FruitSerializer::Show # Returns all relevant fields
+    serializer: Api::FruitSerializer::Show
   end
 end

@@ -329,6 +329,29 @@ usually define these formats as subclasses with the same name as the method they
   .. literalinclude:: Fruits/fruit_serializer.rb
     :language: ruby
 
+Testing the API
+---------------
+The API routes can be tested using Postman. This is a good habit to have since it enables you to ensure that the API responds in the way you expect
+it to.
+
+Installing Postman is usually not a problem and a simple google search will likely give you the info you need.
+
+Postman has an address bar in the upper part of the window where you type in the URL you wish to send a request to. For example, if you wish to know
+which api version our production server uses. Simply put *https://fsektionen.se/api/versions* in the address bar and select *GET* as method in the
+drop down menu to the left of the address bar. See the image below for reference (click for a larger version).
+
+.. image:: Fruits/postman_example.png
+  :width: 1200px
+
+In the bottom half of the window is the response from the server which in this case is various versions. This specific endpoint does not required
+authentication and can be accessed by anyone. This is not the case for most endpoints where token authorization is handled by rails. One can 
+retrieve a token with Postman by logging in through the login endpoint but there is an easier way to test endpoints if you are running a local server.
+
+You might have seen the line ``load_permissions_and_authorize_resource`` which performs authentication and loads the current user. When testing locally,
+that line can be removed and the endpoint tested without having to login. Just be aware that any functionality having to do with the ``current_user``
+will naturally not work since this variable is defined after login.
+
+
 ================
 Design the views
 ================

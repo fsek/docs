@@ -9,5 +9,5 @@ en:
       moldy_no: "No"
     show:
       moldy: This fruit is moldy.
-      notMoldy: This fruit is fresh.
+      not_moldy: This fruit is fresh.
 

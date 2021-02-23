@@ -3,9 +3,9 @@
     <h1> <%= @fruit.name%> </h1>
   </div>
 
-  <%= if @fruit.isMoldy
+  <%= if @fruit.is_moldy
   t('.moldy')
   else
-  t('.notMoldy')
+  t('.not_moldy')
   end -%>
 </div>

@@ -276,7 +276,7 @@ We see that ``create``, ``update`` and ``delete`` methods all have incorporated 
 it redirects to a certain page. The first parameter points to the end destination and the second renders a flash 
 message on the screen. These “end destinations” are accessed through the paths you see when running 
 
-::
+.. code-block:: bash
 
   rails routes | grep fruit
 
@@ -307,6 +307,24 @@ quite in-depth we’ll write out the complete controller directly:
 Through the ``index`` method we want to retrieve all the fruits that belong to the user. We are able to do so using 
 the ``includes`` method as we already have defined the relation between a user and their fruits with Associations. 
 Unlike the admin controller, there is the ``show`` method, which will be used to show a single fruit. *Is it necessary to define?*
+
+Giving users abilities
+**********************
+
+In the top of the controller there is the peculiar line ``load_permissions_and_authorize_resource``. This checks which user is
+logged in and if this user should be able to access the controller actions. It is therefore very important to not forget to
+add a line in ``models/ability.rb`` which grants the users the necessary privileges (or abilities). To allow the user to
+use the ``index`` and ``show`` actions add the following line to ``ability.rb`` in the end of the end of the block
+that checks wether a user id is present (which is the same as checking if a user is signed in):
+
+.. code-block:: ruby
+
+  can :read, Fruit
+
+Writing ``:read`` here is equal to writing ``[:index, :show]``.
+
+You might wonder why this was not needed when defining the admin controller. This is because admins have all abilities available.
+There is therefore no need to add specific abilities, they are added automatically.
 
 
 The API controller
@@ -495,9 +513,18 @@ Model
   .. literalinclude:: Fruits/fruit.en.yml
     :language: yaml
 
-===================
+===================================
+Creating menus to access the fruits
+===================================
+
+Regular menu
+------------
+Adding a new menu is actually done on the website. Sign in as an admin and head to *administrera/menyer*. Now add a new menu with
+link ``/frukter`` and other appropriate attributes. The sorting index decides in which order to show the menus, omitting this field
+will put the link in the bottom of the menu. The column decides which of the columns in the menu to put the link.
+
 Admin dropdown menu
-===================
+-------------------
 
 Lastly, we would like there to be a link to the admin pages in the dropdown menu. We go to 
 **web/app/views/layouts/dropdowns/_admin_dropdown.html.erb** and add ``Fruit`` to the ``Övrigt`` section.

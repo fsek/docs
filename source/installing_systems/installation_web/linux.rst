@@ -20,6 +20,7 @@ If on Ubuntu run the following commands::
 
 On any other Linux distribution just google how to install
 Ruby and find the requirements there.
+If you are on ubuntu 20.0.4 or higher, you might need to change libgdbm5 to libgdbm6 in the above command.
 
 Then run::
 

@@ -3,11 +3,14 @@ Fruits App
 ============
 Introduction
 ============
+This is a simple example illustrating the approximate workflow for making changes to the app. It will build on the fruits example from our web examples, and we will
+implement a basic page displaying the fruits in the app. This is not a comprehensive introduction to dart or flutter, and the example assumes that you are at least
+somewhat familiar with the basics. I recommend checking out the official flutter documentation for an introduction to the framework, they do a much better job 
+explaining the fundamentals than I ever will. The main point of the example is to show how we interact with the website in the app through our API.
 
-
-===========================
-Prerequisits
-===========================
+===========
+Preparation
+===========
 
 Preparing your local web
 ------------------------
@@ -81,20 +84,32 @@ appbar saying Frukter.
 Adding the fruits
 =================
 So far, we have only added some dummy static content. Now, we get to the interesting part! It is time to bring in our fruits!
-We are going to interact with the website using the API. Data is sent over the API as json objects. On the web-side of things,
-we 
+We are going to interact with the website using the API. On the web-side of things, we create actions in the API-controller that 
+specify how the web server will handle different kinds of requests. These will typically be standard rails actions that might sound 
+familiar, such as "index" or "show". But how do we tell the server to perform these actions? Through rails-magic (or routes we manually 
+specify for special actions), these actions are mapped to different HTTP-requests. When we send the correct HTTP-requests, the server 
+will perform the corresponding action and typically respond by sending us some data in JSON-format. We then parse that json object,
+and do something useful with it. If you wonder what actions are available for a certain object, or what request you use to perform that 
+action you can head over to the location of your web repository, and do for example
+::
 
-MORE CONTENT WITH API BASICS
+    rails routes | grep fruits 
 
+if you are interested in the available actions and corresponding requests for fruits. (Sidenote: You can use Postman to communicate with the API outside of
+app development. This is very useful to test what kind of responses you get from different actions, and make it easier to figure out
+what you will need to implement in the app.)
 
-The general idea for piping data from the web to the app is as follows: We create a *service* that will make an http request to the server,
+Control question: What actions are available through the API for our fruits? What actions are available for events?
+
+To summarize, the general idea for piping data from the web to the app is as follows: We create a *service* that will make an http request to the server,
 corresponding to an action in the API-controller over on our rails web site. The server will respond with a json object containing the data we requested.
 We then parse this raw json-data into a dart object that we can use in our app.
 Adding a fruit model and JSON parser
 ------------------------------------
-In order to represent the fruit as a dart object, we create a fruit model. This is in many ways similar to the model for fruit
+Sending data over API:s as JSON-objects is very common, so we get a lot of help from the app framework when we want to parse these.
+In order to represent a fruit as a dart object, we create a fruit model. This is in many ways similar to the model for fruit
 we created in rails. We head on over to **lib/models/home** and create the file **fruit.dart** (this is not rails, we can name
-our model whatever we want, but descriptive names are nice). We are also going to need a fail **fruituser.dart** in the same
+our model whatever we want, but descriptive names are nice). We are also going to need a file **fruituser.dart** in the same
 folder, for reasons that will soon be explained. 
     .. literalinclude:: Fruits/fruit_model.dart
         :language: dart
@@ -102,7 +117,7 @@ folder, for reasons that will soon be explained.
     .. literalinclude:: Fruits/fruituser_model.dart
         :language: dart
 
-Don't worry about the warnings your linter is giving you, we will soon autogenerate a bunch of stuff, but first some comments
+Don't worry about the warnings your linter is giving you, we will soon auto-generate a bunch of stuff, but first some comments
 on the contents of these files. We want our fruit class to contain the fruit attributes that is sent to us over the API.
 The serializer is responsible for converting the rails fruit object into json format, so we peek at the fruit serializer over
 in our web repository (if you do not have such a serializer, read the prerequisits again). If you have the same implementation
@@ -181,6 +196,7 @@ Eventually, that means adding the "show" action to our FruitService, but before 
 to this: 
 
     .. literalinclude:: Fruits/fruits_dummy_cards.dart
+        :language: dart
 
 We've replaced the text widget in our list view with a custom private widget, _FruitCard, that creates clickable cards for each fruit.
 The click does not do anything yet: the onTap function is an empty lambda expression. Feel free to expermient with the styling of the
@@ -234,6 +250,7 @@ Finally, we add some basic styling to the individual fruit pages. For example, w
 on the individual page in some way. Here's an example for how one could modify **lib/screens/fruits/fruitview.dart** to be somewhat
 more helpful
     .. literalinclude:: Fruits/fruitview.dart
+        :language: dart
 Once again, feel free to experiment here.
 
 
@@ -242,7 +259,8 @@ Ideas to try on you own
 =======================
 This example covers the basics of how to fetch data from the web and use it to implement new features in the app. There are
 a lot of things you could try to do on your own to expand upon it if you want to learn more about how the web and app interacts! Here are some ideas:
-* Currently, the fruit index lists all fruits for all users. We probably only want to fetch the fruits belonging to the current user. How would
-  you fix that in the web backend?
-* It would be nice to be able to create and delete fruits in the app! What actions would you have to add to the API-controller? What http 
-  requests to does actions correspond to? What would you add to the fruit service to carry out those actions?
+
+#. Currently, the fruit index lists all fruits for all users. We probably only want to fetch the fruits belonging to the current user. How would
+   you fix that in the web backend?
+#. It would be nice to be able to create and delete fruits in the app! What actions would you have to add to the API-controller? What http 
+   requests to does actions correspond to? What would you add to the fruit service to carry out those actions?

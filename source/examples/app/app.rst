@@ -1,4 +1,4 @@
-Web examples
+App examples
 ============
 
 Here are some examples of app code.

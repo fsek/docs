@@ -104,6 +104,7 @@ Control question: What actions are available through the API for our fruits? Wha
 To summarize, the general idea for piping data from the web to the app is as follows: We create a *service* that will make an http request to the server,
 corresponding to an action in the API-controller over on our rails web site. The server will respond with a json object containing the data we requested.
 We then parse this raw json-data into a dart object that we can use in our app.
+
 Adding a fruit model and JSON parser
 ------------------------------------
 Sending data over API:s as JSON-objects is very common, so we get a lot of help from the app framework when we want to parse these.
@@ -176,6 +177,7 @@ Now we have a way to fetch fruits from the website, so it's time to return to ou
 it. Go back to **lib/screens/fruits/fruits.dart**, and modify it to look like this:
 
    .. literalinclude:: Fruits/fruits_added_state.dart
+       :language: dart
 
 We have now added an initState function for our stateful widget. This initializes the state of the widget when it is first built.
 We add the attribute fruits, which will contain a list of all the fruit objects we recieve from the API call, and make the API call
@@ -205,6 +207,7 @@ _FruitCard here. Perhaps we want a different color? A different text font? Diffe
 ===========================
 Adding pages for each fruit
 ===========================
+
 Modify service
 --------------
 With an (hopefully pretty) fruit list completed, we can think about adding individual pages for each fruit. First, we modify our service 
@@ -226,6 +229,7 @@ We will now make a very basic widget to display the fruits individually, to make
 **lib/screen/fruits**, and call it for example **fruitview.dart** (again, reminder that this is not rails and we can name things
 whatever we want).
     .. literalinclude:: Fruits/fruits_basic_fruitview.dart
+        :language: dart
 
 Compare this to what we did initially when we made the simple text list for the fruits. This time, we get a single fruit
 instead of a list of fruits, but otherwise the basic structure for the widgets are very similar.

@@ -90,7 +90,7 @@ Installing Postgres
 
 To install Postgres on a recent version of Ubuntu, it should be enough to run:
 
-sudo apt-get install postgresql postgresql-contrib libpq-dev
+  sudo apt-get install postgresql postgresql-contrib libpq-dev
 
 If you are using the LTS (Long Term Support) version, you need to run the following commands instead::
 
@@ -220,6 +220,15 @@ You are now ready to load the database structure into Postgres,
 and populate it with some example data. Run the following commands::
 
   rails db:create && rails db:migrate && rails db:seed && rails db:populate_test
+
+
+===================
+Additional packages
+===================
+
+For image upload to work properly on your local machine you need Imagemagick:
+
+  sudo apt-get install imagemagick
 
 ==================
 Running the server

@@ -3,7 +3,7 @@ App
 
 Welcome to the F-guild's app or the infamous F-app!
 
-We're very glad that you want to work on our platform, but before you can start there are a few things you need to do. If you are new to web development I would highly recommend to visit :ref:`learning-web-dev` for various tutorials and general learning material. It's good to have a basic understading of the web and web development before getting into a more complex project, like the F-app. Otherwise, go ahead and follow the :ref:`Installation guide <app-installation-guide>` to get setup and running.
+We're very glad that you want to work on our platform, but before you can start there are a few things you need to do. If you are new to web development I would highly recommend to visit :ref:`learning-web-dev` for various tutorials and general learning material. It's good to have a basic understading of the web and web development before getting into a more complex project, like the F-app. Otherwise, go ahead and follow the :ref:`Installation guide <app-installation-guide>` [DEPRECATED, FIX SOON] to get setup and running.
 
 If you're already set up visit Standard workflow to learn more about how you actually work.
 

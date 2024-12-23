@@ -5,10 +5,6 @@ build:
   tools:
     python: "3.13"
 
-python:
-  version: "3.13"
-  install:
-    - requirements: docs/requirements.txt
 
 commands:
   - make html

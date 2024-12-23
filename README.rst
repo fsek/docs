@@ -6,7 +6,7 @@ Documentation for `fsek/app <https://github.com/fsek/app>`_ and `fsek/web
 code is written with **reStructuredText**.
 
 
-Installations
+Installation
 ==============
 
 Installing python3

@@ -6,8 +6,10 @@ language: en
 # Specify the build environment
 build:
   os: ubuntu-20.04  # Valid values: ubuntu-20.04, ubuntu-18.04
+  tools:
+    sphinx: "4.5.0"  # Specify the Sphinx version you are using
 
-# Define the documentation tool and its configuration
+# Define the Sphinx configuration
 sphinx:
   configuration: docs/conf.py  # Path to your Sphinx config file
 

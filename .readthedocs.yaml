@@ -4,12 +4,14 @@ build:
   os: ubuntu-20.04
   tools:
     python: "3.10"
-  python:
-    version: "3.10"
-    install:
-      - requirements: docs/requirements.txt
-  commands:
-    - make html
+
+python:
+  version: "3.10"
+  install:
+    - requirements: docs/requirements.txt
+
+commands:
+  - make html
 
 sphinx:
   configuration: docs/source/conf.py

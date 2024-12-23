@@ -8,12 +8,11 @@ build:
 python:
   install:
     - requirements: docs/requirements.txt
-  commands:
-    - pip install requirements.txt
+  
 
 python:
   install:
-    - requirements: docs/requirements.txt
+    - requirements: ./requirements.txt
 
 sphinx:
   configuration: ./source/conf.py

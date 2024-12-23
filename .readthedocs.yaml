@@ -8,6 +8,9 @@ build:
   os: ubuntu-20.04  # Valid values: ubuntu-20.04, ubuntu-18.04
   tools:
     sphinx: "4.5.0"  # Specify the Sphinx version you are using
+  commands:
+    - make html  # Build the documentation
+
 
 # Define the Sphinx configuration
 sphinx:

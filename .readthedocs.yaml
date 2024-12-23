@@ -1,0 +1,14 @@
+version: 2
+
+# The Read the Docs project language
+language: en
+
+# Specify the build tool
+sphinx:
+  configuration: docs/conf.py  # Path to your Sphinx config file
+
+# Python configuration
+python:
+  version: "3.9"  # Specify the Python version
+  install:
+    - requirements: docs/requirements.txt  # Path to your requirements file

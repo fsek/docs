@@ -1,9 +1,13 @@
 version: 2
 
-# The Read the Docs project language
+# Language of the documentation
 language: en
 
-# Specify the build tool
+# Specify the build environment
+build:
+  os: ubuntu-20.04  # Valid values: ubuntu-20.04, ubuntu-18.04
+
+# Define the documentation tool and its configuration
 sphinx:
   configuration: docs/conf.py  # Path to your Sphinx config file
 

@@ -12,11 +12,14 @@ Då medlemmar hör av sig till spindelmännen om att de inte har behörighet nå
 
 Steg 1: Gå in på ''Administrera''-menyn och välj ''Användare''.
 
-(BILD)
+.. image:: pictures/vägbeskrivning.png
+   :alt: Sätt att hitta användare
+
 
 Steg 2: Klicka ''Ge medlemskap''
 
-(BILD)
+.. image:: pictures/medlemskap.png
+   :alt: Medlemskap
 
 Klar!
 
@@ -33,13 +36,17 @@ Det är många medlemmar som vill ha egna coola mailalias för sitt engagemang p
 
 Steg 1: Gå in på ''Administrera''-menyn och välj ''Mailalias''.
 
-(BILD)
+.. image:: pictures/hitta-mailalias.png
+   :alt: Sätt att hitta användare
+
 
 Steg 2: Skriv in önskad mailalias i sökrutan och klicka sök.
 
 Steg 3: Skriv in mailadress som önskas kopplas till mailaliaset. Glöm inte att trycka på "Spara"-knappen!
 
-(BILD)
+.. image:: pictures/mailalias.png
+   :alt: Sätt att skapa mailalias
+
 
 Klar!
 
@@ -49,11 +56,12 @@ Klar!
 
 Steg 1: Gå in på ''Administrera''-menyn och välj ''Mailalias''.
 
-(BILD)
 
 Steg 2: Klicka på "Redigera"-knappen så öppnas ett fält med nuvarande mailadresser kopplade till mailaliaset.
 
-(BILD)
+.. image:: pictures/hitta-mailalias.png
+   :alt: Sätt att hitta användare
+
 
 Steg 3: Skriv till en mailadress på en ny rad eller ändra en befintlig. Glöm inte att trycka på "Spara"-ikonen!
 
@@ -66,11 +74,13 @@ Skapa snabblänk
 
 Steg 1: Gå in på ''Administrera''-menyn och välj ''Snabblänkar''.
 
-(BILD)
+.. image:: pictures/hitta-snabblänk.png
+   :alt: Sätt att hitta snabblänk
 
 Steg 2: Skriv in namn på snabblänken i vänster fält och vart snabblänken ska leda i höger fält. Alltså, snabblänken kommer se ut fsektionen.se/google och när man klickar på denna så kommer man till www.google.com
 
-(BILD)
+.. image:: pictures/fixa-snabblänk.png
+   :alt: Sätt att fixa snabblänk
 
 Klar!
 
@@ -84,7 +94,7 @@ Steg 2: Tänk ut ett bra svar på mailet som är hjälpsamt.
 
 Steg 3: Skriv detta bra-iga svar och tänk på att vidarebefodra svaret till alla spindelmän!
 
-Steg 4: Du har nu +1000 poäng i Jakobs bok.
+Steg 4: Du har nu +10000000 social credit points.
 
 Klar!
 

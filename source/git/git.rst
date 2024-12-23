@@ -1,7 +1,7 @@
 Git
 ===
 
-This where you git gud.
+This where you meet git gud.
 
 .. toctree::
   :maxdepth: 1

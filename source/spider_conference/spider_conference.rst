@@ -7,5 +7,6 @@ The Spider conference is an annual conference for the Spidermans of the F-guild.
   :maxdepth: 2
   :caption: Contents:
 
+  ./spider_conference_2024/spider_conference_2024
   ./spider_conference_2019/spider_conference_2019
   ./spider_conference_2018/spider_conference_2018

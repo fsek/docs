@@ -74,7 +74,7 @@ Skapa snabblänk
 
 Steg 1: Gå in på ''Administrera''-menyn och välj ''Snabblänkar''.
 
-.. image:: ../pictures/hitta-snabblänk.png
+.. image:: pictures/hitta-snabblänk.png
    :alt: Sätt att hitta snabblänk
 
 Steg 2: Skriv in namn på snabblänken i vänster fält och vart snabblänken ska leda i höger fält. Alltså, snabblänken kommer se ut fsektionen.se/google och när man klickar på denna så kommer man till www.google.com

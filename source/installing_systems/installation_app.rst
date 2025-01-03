@@ -24,6 +24,8 @@ This can be fixed by making a directory where you put your installed programs an
 
   export PATH="$PATH:$HOME/path-to-directory/flutter/bin"
 
+to your paths.
+
 Now it should work (check the step above again).
 
 

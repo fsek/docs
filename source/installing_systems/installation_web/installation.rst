@@ -4,6 +4,7 @@
 Setting up Git
 ==============
 
+
 To set up Git you first need to create a account on Github.
 
 After this is done a few simple steps are needed:
@@ -47,6 +48,8 @@ using the same email as on GitHub.
 ==========================
 Setting up Docker
 ==========================
+
+
 We use something called containerized structure where we run our different services in Docker containers to make sure they work on different machines and so on.
 To install Docker, visit the link:
 
@@ -62,6 +65,7 @@ When downloaded check if it has been correctly downloaded by running::
 Installing the environment
 ==========================
 
+
 To install the environment you should first clone the repo. Head to your
 preferred directory and clone. Afterwards you need to install Rails and
 all the gems required. All these things can be achieved by running the
@@ -75,6 +79,7 @@ following commands::
 ==================
 Running the server
 ==================
+
 
 To run the server and all the web service locally simply run the command::
 

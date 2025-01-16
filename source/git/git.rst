@@ -1,3 +1,4 @@
+.. _git-guide:
 Git
 ===
 

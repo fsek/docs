@@ -19,7 +19,7 @@ With the project opened you are ready to start coding. Before we make any change
 
   git checkout -b <branch name>
 
-If this is new to you I would recommend to checkout :ref:`learning-git` before we continue and familiarize yourself with the git workflow and its core concepts.
+If this is new to you I would recommend to checkout :ref:`git-guide` before we continue and familiarize yourself with the git workflow and its core concepts.
 
 ===============
 Running the app

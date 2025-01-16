@@ -9,5 +9,4 @@ provide some understanding of underlying code mechanics.
 	:maxdepth: 2
 	:Caption: Contents
 
-	./web/web
 	./app/app

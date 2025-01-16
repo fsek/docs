@@ -5,7 +5,6 @@ This is some text with **a bold word** and *a word in italic*.
 
 This is a `link <https://fsektionen.se/>`_ to a cool place.
 
-This is a :ref:`link <learning-web-dev>` to an another page in the docs through a reference label defined in the top of the getting_started.rst file.
 
 ===========================
 This is an ordinary header

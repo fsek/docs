@@ -12,7 +12,6 @@ This is an amazing documentation! Us oldie but goldie spidermen have documented 
   :maxdepth: 2
   :caption: Documentation:
 
-  ./learning_web_dev/learning_web_dev
   ./installing_systems/installing_systems
   ./app/app
   ./web/web

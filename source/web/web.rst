@@ -10,4 +10,3 @@ Web stuff
   ../installing_systems/installation_web/installation_web
   get_started_coding
   naming
-  translation_files

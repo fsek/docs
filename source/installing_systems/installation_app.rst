@@ -9,8 +9,8 @@ Installing Flutter
 
 The F-sektionen app is made with Flutter and Dart, so to get up and running we need to install the Flutter. Follow the links below and install the software if you haven't done so already.
 
- - `Flutter installation <https://docs.flutter.dev/release/archive>`_ - Install the correct version (3.19.6) and the right distro for your OS.
-
+ - `Flutter SDK download <https://docs.flutter.dev/release/archive>`_ - Install the correct version (3.19.6) and the right distro for your OS.
+ - `Further installation instructions <https://docs.flutter.dev/get-started/install>`_ - Select your OS, then select Android. Don't install android studio just yet, we'll do that in the next step.
 
 Do all the steps to install Flutter.
 
@@ -18,15 +18,17 @@ Try to run: ::
 
   flutter --version
 
-If this doesn't work it is probably because your computer cannot locate the necessary files to run Flutter.
+This might take a bit to give output the first time, try restarting if it takes too long. If this doesn't work it is probably because your computer cannot locate the necessary files to run Flutter.
 
 This can be fixed by making a directory where you put your installed programs and then add: ::
 
   export PATH="$PATH:$HOME/path-to-directory/flutter/bin"
 
-to your paths.
+to your paths. On Ubuntu you will probably want to run the following, which differs from the command in the official guide: ::
 
-Now it should work (check the step above again).
+  echo 'export PATH="~/path-to-directory/flutter/bin:$PATH"' >> ~/.bashrc
+
+Now it should work (check the step above again). If you have not already installed it, we recommend using `VSCode <https://code.visualstudio.com/docs/setup/setup-overview>`_ as your IDE.
 
 
 =================================
@@ -35,14 +37,15 @@ Installing Android Studio
 
 For development on ``App2``, quite a few installments are needed and Android Studio is one of them.
 
- - `Android Studio installation <https://developer.android.com/studio>`_ 
+ - `Android Studio installation <https://developer.android.com/studio/install>`_ 
 
-In this app you can both get necessary SDK:s if something goes wrong and get different Android Emulators for easier development.
+In this app you can both get necessary SDK:s if something goes wrong and get different Android Emulators for *much* easier development.
 
 .. |rightarrow| unicode:: U+2192
 
-To find the different emulators go to: Projects |rightarrow| Press the 3 dots in the right upper corner |rightarrow| Press Virtual Device Manager |rightarrow| Add whichever emulator you want.
+To find the different emulators go to: Projects |rightarrow| Press the 3 dots in the right upper corner (or click "more actions") |rightarrow| Press Virtual Device Manager |rightarrow| Add whichever emulator you want.
 
+On linux, you probably also want to go to the SDK manager |rightarrow| SDK tools |rightarrow| Check and install android sdk command-line tools.
 
 =================================
 Installing Xcode (macOS only)
@@ -88,7 +91,7 @@ The first thing we need to do after cloning the project is to install the enviro
 
   cd App2
 
-To start of check that: ::
+To start off, check that: ::
   
   flutter doctor
 
@@ -97,7 +100,7 @@ Looks like this: (MacOS but similar on Windows and Linux)
 .. image:: ../pictures/correct-app-installment.png
    :alt: Bild som visar vad man ska få upp när man kör flutter doctor.
 
-This should only need to be run the first time and never again (mostly).
+This should only need to be run the first time and never again (mostly). Try fixing whatever errors appear. You can safely ignore errors related to Chrome.
 
 Now run: ::
 
@@ -111,14 +114,14 @@ After this run: ::
 
 This may or may not work but it is most of the time not vital for the process to work.
 
-Lastly run: ::
+Lastly run the magic command: ::
 
-  flutter pub run build_runner build.
-
+  flutter pub run build_runner build
 
 
 ==================
-Running the server
+Running the App
 ==================
 
-After running the commands above you should start a emulator to see what is happening you can click the `No Device` button and choose one. If you don't have any good one installed you can look at Android Studio installment.
+The app automatically points to stage.fsektionen.se, so you don't have to run your own backend. If you have not already, download `VSCode <https://code.visualstudio.com/docs/setup/setup-overview>`_ and open the App2 folder in it. 
+You will also want to install the ``flutter`` extension. After running the commands above you should start a emulator to see what is happening. You can click the `No Device` button and choose one. If you don't have any good one installed you can look at Android Studio installment.

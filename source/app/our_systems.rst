@@ -21,8 +21,6 @@ When running and developing the app, ``stage.fsektionen.se`` will automatically 
 
 Android studio is most likely where you'll be installing the emulators for android needed to check if the app updates you write actually work. 
 
-To get a new emulator up and running:
-
 **VSCode**
 
 Most app development happens in VSCode for the majority (2/2) of the active app developers. 

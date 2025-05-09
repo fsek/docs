@@ -24,12 +24,11 @@ Android studio is most likely where you'll be installing the emulators for andro
 **VSCode**
 
 Most app development happens in VSCode for the majority (2/2) of the active app developers. 
-TODO: Check if Android Studio just works™. 
 
 The following extensions might be useful:
 
-- Dart 
 - Flutter
+- Dart 
 
 **IOS Emulation**
 

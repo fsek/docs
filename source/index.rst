@@ -19,6 +19,7 @@ This is an amazing documentation! Us oldie but goldie spidermen have documented 
   ./framework_docs/framework
   ./examples/examples
   ./spider_conference/spider_conference
+  ./mattermost/mattermost
   spiderman_duties
   rostsystem
   template

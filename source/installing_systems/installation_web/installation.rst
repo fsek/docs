@@ -69,6 +69,14 @@ When downloaded check if it has been correctly downloaded by running::
 
   docker run hello-world
 
+**Important!**
+
+Running the **frontend** (WWW-Web) requires at least 6GB of ram. Docker desktop has a limit of 4GB by default.
+
+In Docker Desktop, go into ``Settings > Resources > Advanced > Resource Allocation`` and make sure ``Memory limit`` is set to atleast 6GB, preferably more.
+
+Skipping this step will lead to weird crashes and extremely slow build times!
+
 ==========================
 Installing the environment
 ==========================

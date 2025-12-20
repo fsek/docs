@@ -37,7 +37,7 @@ Which OS should I use?
 Windows Subsystems for Linux (WSL)
 ==================================
 
-This might be the easisest and fastest way to get a Linux environment up and running. To install a WSL, simply head to the Windows Store and search
+This might be the easiest and fastest way to get a Linux environment up and running. To install a WSL, simply head to the Windows Store and search
 for Ubuntu (there are many different Linux versions or distributions but Ubuntu is the most widely used). Simply download and install the app and then
 you need to run a command in PowerShell. Open PowerShell as an administrator (right click and select *Run as administrator*) and run the following command::
 

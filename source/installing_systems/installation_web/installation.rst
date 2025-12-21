@@ -1,5 +1,5 @@
 
-
+.. _install_git:
 ==============
 Setting up Git
 ==============

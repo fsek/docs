@@ -10,3 +10,5 @@ provide some understanding of underlying code mechanics.
 	:Caption: Contents
 
 	./app/app
+	./backend/backend
+	./frontend/frontend

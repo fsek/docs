@@ -124,6 +124,9 @@ The next thing we do is to define the columns of the table. Because these have m
 
 ``const { t } = useTranslation("admin");`` initializes the translation hook for the "admin" namespace, allowing us to use translated strings in our table headers. Each column is defined using ``columnHelper.accessor``, specifying the property of the ``FruitRead`` object to display, along with the header and cell rendering logic.
 
+.. tip::
+    Always add translations to the components and pages you create. LibU will be really sad if we end up with a frontend that only works in Swedish.
+
 To display fruits, we need to fetch them from the backend API. We will use the ``useSuspenseQuery`` hook to do this. Add the following below the columns definitions, inside the ``Fruits`` function:::
 
     const { data, error } = useSuspenseQuery({

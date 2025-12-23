@@ -264,6 +264,9 @@ Testing the Routes
 
 You should always test your routes to make sure they work as you expect them to. We really encourage you to write automated tests for your routes (ask a su-perman if you need help with that), but the easiest way to test them quickly is to use the built-in Swagger UI that comes with FastAPI. Start the backend with the command ``uvicorn main:app --reload`` and open your web browser to ``http://localhost:8000/docs``. You should see the Swagger UI with a list of all available routes. You will have to log in first using the "Authorize" button in the top right corner to test the routes that require permissions. Ask a su-perman for the account details.
 
+.. tip::
+   Testing can really help during development. Test your routes manually as you create them, and when you create pull requests always include automated tests to ensure your code works as expected and to prevent future changes from breaking it. (You can ask a su-perman or bot for help with writing tests!)
+
 Now that you're logged in, find your fruit routes in the list and test them out one by one. Make sure to test all four CRUD operations to ensure everything works as expected.
 
 If everything works, congratulations! You've successfully created a new data object with CRUD operations in our backend codebase. If you encounter any issues, don't hesitate to ask a su-perman for help.

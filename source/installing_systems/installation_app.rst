@@ -9,10 +9,10 @@ Installing Flutter
 
 The F-sektionen app is made with Flutter and Dart, so to get up and running we need to install the Flutter. Follow the links below and install the software if you haven't done so already.
 
- - `Flutter SDK download <https://docs.flutter.dev/release/archive>`_ - Install the correct version (3.19.6) and the right distro for your OS.
+ - `Flutter SDK download <https://docs.flutter.dev/release/archive>`_ - Download the correct version (3.35.4) for the correct OS.
  - `Further installation instructions <https://docs.flutter.dev/get-started/install>`_ - Select your OS, then select Android. Don't install android studio just yet, we'll do that in the next step.
 
-Do all the steps to install Flutter.
+Follow all the steps to install Flutter in the guide above.
 
 Try to run: ::
 

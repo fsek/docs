@@ -3,7 +3,7 @@
 Backend Code Tutorial
 =====================
 
-So you want to work on the backend of our website and app? Great! This tutorial will guide you through the basics of our backend code. You will be creating a simple data object and learning how to interact with it using CRUD (Create, Read, Update, Delete) operations.
+This tutorial will guide you through the basics of our backend code. You will be creating a simple data object and learning how to interact with it using CRUD (Create, Read, Update, Delete) operations.
 
 Preparation
 -----------

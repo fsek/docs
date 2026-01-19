@@ -1,12 +1,6 @@
 Frontend Code Tutorial
 ======================
 
-..
-
-    "The frontend of the website is a pathway to many abilities some consider to be unnatural."
-
-    -- Alan Turing
-
 In this tutorial, we will create an admin page for managing fruits using our backend API. Frontend code can be very verbose, so don't worry if you don't understand every line. The goal here is to give you a basic idea of how to set up a frontend page that interacts a backend object very similar to the one we created in :ref:`the backend tutorial <backend_tutorial>`. You don't have to have done that tutorial to follow along here, all the code will be provided.
 
 .. note::

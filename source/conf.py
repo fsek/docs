@@ -19,7 +19,7 @@
 # -- Project information -----------------------------------------------------
 
 project = 'F-sek'
-copyright = '2025, F-sektionen inom TLTH'
+copyright = '2026, F-sektionen inom TLTH'
 author = 'F-sektionen'
 
 # The short X.Y version

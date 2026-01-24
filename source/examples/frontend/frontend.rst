@@ -30,12 +30,12 @@ The frontend is built using Next.js, a popular React framework for building web 
 Create a Git Branch
 -------------------
 
-Git is great for keeping track of changes in code. You should always create a new branch when working on a new feature or bugfix. This keeps your changes organized and makes it easier for others to help you later on. First run this to make sure you are up to date with the latest changes, and branch off the main branch:::
+Git is great for keeping track of changes in code. You should always create a new branch when working on a new feature or bugfix. This keeps your changes organized and makes it easier for others to help you later on. First run this to make sure you are up to date with the latest changes, and branch off the main branch: ::
 
     git checkout main
     git pull origin main
 
-Now we want to create the new branch. You should run this in the terminal:::
+Now we want to create the new branch. You should run this in the terminal: ::
 
     git checkout -b COOL-NAME-FOR-YOUR-BRANCH
 
@@ -44,14 +44,14 @@ Replace ``COOL-NAME-FOR-YOUR-BRANCH`` with a descriptive name for your branch. I
 Starting the Backend
 --------------------
 
-A backend branch containing all the necessary changes to support the fruit admin page has already been created for you. You want to switch to that branch in your local backend repository. Run these commands in the terminal:::
+A backend branch containing all the necessary changes to support the fruit admin page has already been created for you. You want to switch to that branch in your local backend repository. Run these commands in the terminal: ::
 
     git checkout fruits-example-2026
     git pull origin fruits-example-2026
 
 Now rebuild the backend (``Crtl+Shift+P`` in VSCode and select ``Dev Containers: Rebuild Container``) so that the new changes are applied. After rebuilding, start the backend server. You should check that it is running by opening ``http://localhost:8000/docs`` in your web browser. You should see the API documentation page and be able to see the ``/fruits/`` endpoint. This is what you'll be interacting with from the frontend.
 
-For the frontend to know about these changes, you have to regenerate the API specification in the frontend codebase. Go to the frontend repository and run this command in the terminal:::
+For the frontend to know about these changes, you have to regenerate the API specification in the frontend codebase. Go to the frontend repository and run this command in the terminal: ::
 
     bun run generate-api
 
@@ -67,7 +67,7 @@ After this tutorial, I recommend copying and modifying code from existing pages 
 
 Our page has to be located in the right place so that next.js can serve it correctly. Create a new folder called ``fruits`` at ``src/app/admin/``. Inside that folder, create a new file called ``page.tsx``. This file will contain the main code for our fruit admin page.
 
-Open the file and add the following code to the top:::
+Open the file and add the following code to the top: ::
 
     "use client";
 
@@ -86,13 +86,13 @@ This code imports all the necessary modules and components we will use in our pa
 
 This is a good time to give a brief overview of how the page will look when it's done. The page will display a table of fruits, allowing users to view and add fruit entries. Each fruit will have properties like name, color, and price. There will be a button above the table to add new fruits.
 
-The table needs a helper which keeps track of the columns and makes it easier to define them. Add this code below the imports:::
+The table needs a helper which keeps track of the columns and makes it easier to define them. Add this code below the imports: ::
 
     const columnHelper = createColumnHelper<FruitRead>();
 
 As you can see, we are using the ``FruitRead`` type that was generated when we ran ``bun run generate-api`` earlier. This type represents the data structure of a fruit as returned by the backend API.
 
-The next thing we do is to define the columns of the table. Because these have multi language support, we need to do this inside the main component function so that we can use the translation hook. Add this code below the previous code:::
+The next thing we do is to define the columns of the table. Because these have multi language support, we need to do this inside the main component function so that we can use the translation hook. Add this code below the previous code: ::
 
     export default function Fruits() {
         const { t } = useTranslation("admin");
@@ -121,7 +121,7 @@ The next thing we do is to define the columns of the table. Because these have m
 .. tip::
     Always add translations to the components and pages you create. LibU will be really sad if we end up with a frontend that only works in Swedish.
 
-To display fruits, we need to fetch them from the backend API. We will use the ``useSuspenseQuery`` hook to do this. Add the following below the columns definitions, inside the ``Fruits`` function:::
+To display fruits, we need to fetch them from the backend API. We will use the ``useSuspenseQuery`` hook to do this. Add the following below the columns definitions, inside the ``Fruits`` function: ::
 
     const { data, error } = useSuspenseQuery({
 		...getAllFruitsOptions(),
@@ -132,13 +132,13 @@ This fetches all the fruits from the backend API and puts it in the ``data`` var
 .. note::
     A hook in React is a special function that lets you "hook into" React features from function components. They allow for things like state management (remembering values between renders) and side effects (performing actions like data fetching when the component renders or updates). 
 
-We shall now define our table using a custom hook called ``useCreateTable``. Add this code below the previous code:::
+We shall now define our table using a custom hook called ``useCreateTable``. Add this code below the previous code: ::
 
     const table = useCreateTable({ data: data ?? [], columns });
 
 This creates a table instance using the fetched data and the defined columns. The ``data ?? []`` syntax ensures that if ``data`` is undefined (e.g., while loading), an empty array is used instead to avoid errors.
 
-Great! Now we can render the actual page. Add this at the bottom of the ``Fruits`` function:::
+Great! Now we can render the actual page. Add this at the bottom of the ``Fruits`` function: ::
 
     return (
         <Suspense fallback={<LoadingErrorCard isLoading={true} />}>
@@ -159,7 +159,7 @@ This code renders the page content. We use a ``Suspense`` component to handle lo
 .. note::
     **What's this ``className`` stuff?** We are using a CSS framework called **Tailwind CSS** to style our components. The ``className`` attributes contain utility classes that apply specific styles, such as padding, font size, and colors. For example, ``px-8`` adds horizontal padding, ``text-3xl`` sets the text size to 3 times extra large, and ``text-primary`` applies the primary color defined in our theme. This is much easier than writing custom CSS for every component.
 
-You should now be able to see the fruit admin page by navigating to ``http://localhost:3000/admin/fruits`` in your web browser, after having started the frontend server with the commands:::
+You should now be able to see the fruit admin page by navigating to ``http://localhost:3000/admin/fruits`` in your web browser, after having started the frontend server with the commands: ::
 
     bun install
     bun run generate-api
@@ -177,7 +177,7 @@ Let's get started with adding the functionality to add new fruits. We will add a
 Imports
 ^^^^^^^
 
-Start by adding the imports to the top of the file:::
+Start by adding the imports to the top of the file: ::
 
     import { useState, useEffect } from "react";
     import { Button } from "@/components/ui/button";
@@ -211,7 +211,7 @@ There's not much to add here yet. Note the imports of ``zod``, which we will use
 Zod Schema
 ^^^^^^^^^^
 
-Zod needs a schema to tell it how to validate the form data. Add this code below the imports:::
+Zod needs a schema to tell it how to validate the form data. Add this code below the imports: ::
 
     const fruitSchema = z.object({
         name: z.string().min(1),
@@ -227,7 +227,7 @@ Here we forbid empty names and colors, and we make sure the price is a non-negat
 Component Logic
 ^^^^^^^^^^^^^^^
 
-Now we define the component itself. We need to manage the state of the dialog (open/closed) and the form submission status. We also initialize the form hook using the schema we just created. Add this code below the schema:::
+Now we define the component itself. We need to manage the state of the dialog (open/closed) and the form submission status. We also initialize the form hook using the schema we just created. Add this code below the schema: ::
 
     export default function FruitForm() {
         const [open, setOpen] = useState(false);
@@ -248,7 +248,7 @@ The ``useState(false)`` call creates a state variable called ``open`` initialize
 Handling Data Submission
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-To send data to the backend, we use a mutation. We also need a function to handle the form submission event. Add this inside the component:::
+To send data to the backend, we use a mutation. We also need a function to handle the form submission event. Add this inside the component: ::
 
     const createFruit = useMutation({
 		...createFruitMutation(),
@@ -263,7 +263,7 @@ To send data to the backend, we use a mutation. We also need a function to handl
 		},
 	});
 
-The ``useMutation`` hook comes from React Query. While ``useQuery`` is for fetching data from the backend, ``useMutation`` is specifically for changing data. As you can see, we have defined ``onSuccess`` and ``onError`` handlers. If the mutation is successful, we invalidate the fruit list query so that it gets refetched with the new data, close the dialog, and re-enable the submit button. If there is an error, we just re-enable the submit button so the user can try again. After this, add the ``onSubmit`` function:::
+The ``useMutation`` hook comes from React Query. While ``useQuery`` is for fetching data from the backend, ``useMutation`` is specifically for changing data. As you can see, we have defined ``onSuccess`` and ``onError`` handlers. If the mutation is successful, we invalidate the fruit list query so that it gets refetched with the new data, close the dialog, and re-enable the submit button. If there is an error, we just re-enable the submit button so the user can try again. After this, add the ``onSubmit`` function: ::
 
     function onSubmit(values: z.infer<typeof fruitSchema>) {
         setSubmitEnabled(false);
@@ -281,7 +281,7 @@ The ``onSubmit`` function is special because it's only called by the form librar
 Resetting the Form
 ^^^^^^^^^^^^^^^^^^
 
-When the user opens the dialog, we want to make sure the form is empty. We can use the ``useEffect`` hook to reset the form whenever the ``open`` state changes to true. Add this below the ``onSubmit`` function:::
+When the user opens the dialog, we want to make sure the form is empty. We can use the ``useEffect`` hook to reset the form whenever the ``open`` state changes to true. Add this below the ``onSubmit`` function: ::
 
     useEffect(() => {
         if (open) {
@@ -300,7 +300,7 @@ Rendering the Dialog Structure
 
 Finally, we need to render the UI. We'll start with the button that opens the dialog and the basic structure of the form dialog itself. The ``Form`` component acts as a context provider for ``react-hook-form``, passing down all the necessary methods to the input fields we will add later. Don't worry about understanding every line of this code, most of it is just boilerplate.
 
-Add this return statement at the end of the component:::
+Add this return statement at the end of the component: ::
 
     return (
         <div className="p-3">
@@ -346,7 +346,7 @@ Now we need to add the actual input fields inside the ``<form>`` tag. We use the
 
 The ``FormField`` component takes a ``control`` prop (from our ``fruitForm`` hook) and a ``name`` prop (which must match a key in our Zod schema). The ``render`` prop is where the magic happens: it gives us a ``field`` object containing props like ``onChange``, ``onBlur``, and ``value``, which we spread onto our ``Input`` component. This automatically wires up validation and state management.
 
-Replace the comment ``{/* Form fields will go here */}`` with the following code:::
+Replace the comment ``{/* Form fields will go here */}`` with the following code: ::
 
                             <FormField
                                 control={fruitForm.control}
@@ -420,11 +420,11 @@ Phew! Our form component is now complete. Before we can use it, we need to actua
 Using the Form Component
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-Go back to the ``page.tsx`` file we created earlier. We need to import the ``FruitForm`` component and add it above the table. Add this import at the top with the other imports:::
+Go back to the ``page.tsx`` file we created earlier. We need to import the ``FruitForm`` component and add it above the table. Add this import at the top with the other imports: ::
 
     import FruitForm from "./FruitForm";
 
-Now, add the ``<FruitForm />`` component just above the ``<AdminTable />`` component in the return statement:::
+Now, add the ``<FruitForm />`` component just above the ``<AdminTable />`` component in the return statement: ::
 
                 <FruitForm />
                 <AdminTable table={table}/>

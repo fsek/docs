@@ -23,19 +23,20 @@ Which OS should I use?
 
 - **If you are already using Linux:** Great, you came prepared!
 - **If you are using macOS:** This works well too!
-- **If you are using Windows:** Won't work, you have a couple of choices, ordered below by level of recommendation.
+- **If you are using Windows:** Won't work out of the box so you have a couple of choices, ordered below by level of recommendation.
 
   - `Windows Subsystems for Linux (WSL)`_. This method essentially installs Linux on Windows. Weird, yes but it works surprisingly well.
 
-  - `Dual booting/changing entirely to Linux`_. If you want the most compatability and learn Linux, this is the way to go. It can, however,
-    be a bit of a hassle and take some time. I have currently dual-booted and have no regrets.
+  - `Dual booting/changing entirely to Linux`_. If you want the most compatibility and learn Linux, this is the way to go. If you don't, WSL. There are guides for this online, but you won't have the time to do this during our meetings.
 
-  - `Using a Virtual Machine (VM)`_. If you have a really good laptop with a good graphics card, this can work fine. If not, this method
-    will likely only be a waste of time since the OS will be slow and sluggish.
 
 ==================================
 Windows Subsystems for Linux (WSL)
 ==================================
+
+.. warning::
+
+  This might no longer be working. Look at the `README of the frontend repo <https://github.com/fsek/WWW-Web#readme>`_ for what should be the most up to date installation instructions for WSL2.
 
 This might be the easiest and fastest way to get a Linux environment up and running. To install a WSL, simply head to the Windows Store and search
 for Ubuntu (there are many different Linux versions or distributions but Ubuntu is the most widely used). Simply download and install the app and then
@@ -51,20 +52,3 @@ if you want to run several routines at once.
 
 To access files created in the Ubuntu environment, use Visual Code. Download it from `<https://code.visualstudio.com/>`_, install it and install the extension *Remote - WSL*. You can
 now open files and folders in Ubuntu with Visual Code.
-
-
-=======================================
-Dual booting/changing entirely to Linux
-=======================================
-
-Since there are many great tutorials covering this topic, it will not be described in detail here. Just remember to create a backup of your Windows installation
-before dual booting in case something goes wrong! Also, **Ubuntu** is the most widely used Linux distribution so if you don't know what to choose,
-that is a good start.
-
-============================
-Using a Virtual Machine (VM)
-============================
-
-Creating a VM is also covered in great detail in several tutorials online. An open source VM which works okay is VirtualBox. However, there might be some performance
-issues which could be solved after some tinkering with settings. Another option is VMWare which is not free but there might be some keys available on the web.
-VMWare has generally worked better for me but in the end, WSL is recommended over a VM since you generally only need a terminal and not an entire GUI.

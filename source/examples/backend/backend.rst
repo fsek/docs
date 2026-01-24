@@ -15,18 +15,21 @@ To work through this tutorial, you will need:
 
 .. _`github README instructions`: https://github.com/fsek/WebWebWeb
 
+.. _how_the_backend_works:
+
 How the Backend Works
 ---------------------
 
-When a request comes into the backend (for example, when a user tries to load a page and sends a GET request), it goes through several layers before reaching the database and sending a response back to the user. Here's a simplified overview of the process:
+When a request comes into the backend (for example, when a user tries to load a page and sends a GET request), it goes through several layers before reaching the database and sending a response back to the user. Below is a simplified overview of the process. You don't need to understand all the details now, but at the end of the tutorial you should be able to see how the different parts fit together. You can return to this section later as you work through the tutorial.
 
 1. The request hits our server (``uvicorn``) and gets passed to FastAPI's application object in ``main.py``.
-2. FastAPI matches the URL and HTTP verb to one of the routers in ``routes/`` (you will add ``fruit_router`` there later in this tutorial).
-3. Dependencies run before the handler: we create a database session (``DB_dependency``) and check permissions (``Permission.require(...)`` when configured).
+2. FastAPI matches the URL (eg. "/fruits") and HTTP verb (eg. "GET") to one of the routers in ``routes/`` (you will add ``fruit_router`` there later in this tutorial).
+3. Dependencies run before the route handler (the handler is the function which handles the request. eg. "get_fruit()"). We create a database session (``DB_dependency``) and check permissions (``Permission.require(...)``).
 4. The route handler uses SQLAlchemy ORM models in ``db_models/`` to read or change rows in the database inside that session.
 5. Pydantic schemas in ``api_schemas/`` validate incoming data and serialize outgoing data so responses have the shapes and types we expect.
-6. The handler returns a Python object. FastAPI turns it into JSON, sets the HTTP status code, and sends the response back to the client.
-7. If something goes wrong (for example, a fruit is not found), the handler raises ``HTTPException`` so FastAPI can send the right error code to the caller.
+6. The handler returns a Python object. Pydantic once again validates this outgoing data against the schemas. 
+7. FastAPI turns the Python object into JSON, sets the HTTP status code, and sends the response back to the client.
+8. If something goes wrong (for example, a fruit is not found), the handler raises ``HTTPException`` so FastAPI can send the right error code to the caller.
 
 Keep this mental model handy as you work through the steps below - each step in the tutorial plugs into one of these layers.
 
@@ -34,12 +37,12 @@ Keep this mental model handy as you work through the steps below - each step in 
 Create a Git Branch
 --------------------
 
-Git is great for keeping track of changes in code. You should always create a new branch when working on a new feature or bugfix. This keeps your changes organized and makes it easier for others to help you later on. First run this to make sure you are up to date with the latest changes, and branch off the main branch:::
+Git is great for keeping track of changes in code. You should always create a new branch when working on a new feature or bugfix. This keeps your changes organized and makes it easier for others to help you later on. First run this to make sure you are up to date with the latest changes, and branch off the main branch: ::
 
     git checkout main
     git pull origin main
     
-Now we create the branch of off main. You should run this in the terminal:::
+Now we create the branch of off main. You should run this in the terminal: ::
 
     git checkout -b COOL-NAME-FOR-YOUR-BRANCH
 
@@ -48,7 +51,7 @@ Replace ``COOL-NAME-FOR-YOUR-BRANCH`` with a descriptive name for your branch.
 Creating a Data Object
 ---------------------
 
-Great! Now we are ready to start coding. We will be creating a simple data object called "Fruit" with attributes like "name" and "color". The first step is to define the data model. Go to the ``db_models`` directory and create a new file called ``fruit_model.py``. In this file, define the Fruit model using SQLAlchemy ORM:::
+Great! Now we are ready to start coding. We will be creating a simple data object called "Fruit" with attributes like "name" and "color". The first step is to define the data model. Go to the ``db_models`` directory and create a new file called ``fruit_model.py``. In this file, define the Fruit model using SQLAlchemy ORM (Object-Relational Mapping): ::
 
     from db_models.base_model import BaseModel_DB
     from sqlalchemy import String
@@ -80,7 +83,7 @@ Now that we've got a basic model, we want to move on to:
 Database Schema
 ---------------
 
-The database schema tells our backend server what types of things it should expect to receive and send out, so that it can perform type checking and tell us if something goes wrong right away. The schema will for example prevent sending a string "thirty one" as the price of the fruit. This part is pretty simple. Go to the ``api_schemas`` directory and add a new file ``fruit_schema.py``:::
+The database schema tells our backend server what types of things it should expect to receive and send out, so that it can perform type checking and tell us if something goes wrong right away. The schema will for example prevent sending a string "thirty one" as the price of the fruit. This part is pretty simple. Go to the ``api_schemas`` directory and add a new file ``fruit_schema.py``: ::
 
     from api_schemas.base_schema import BaseSchema
 
@@ -102,21 +105,27 @@ The database schema tells our backend server what types of things it should expe
         color: str | None = None
         price: int | None = None
 
-.. note::
-   **Why separate files?** You might wonder why we define the fields twice (once in ``db_models`` and once here). The **Model** represents the database table, while the **Schema** represents the public API. Keeping them separate allows us to hide internal database fields (like passwords or internal flags) from the public API.
+.. hint::
+   You might wonder why we define the fields twice (once in ``db_models`` and once here). The **Model** represents the database table, while the **Schema** represents the public API. Keeping them separate allows us to hide internal database fields (like passwords or internal flags) from the public API.
 
 As you can see, we import the BaseSchema which gives us some nice basics, then we define three schemas for different operations and tell Pydantic (basically the type checker) what fields and types to expect. ``| None = None`` essentially says "If we don't get any value for this field, just pretend it's None.". This allows us to only include the fields we want to change when updating a fruit. Note that this doesn't mean the object in the database will be updated to have None in those fields, any changes to the database happen later in the router code.
+
+.. note::
+   This maps directly to :ref:`How the Backend Works <how_the_backend_works>` steps 5-6 (schema validation and serialization).
 
 With the database schema done, we should not get any type errors when moving on to the next step:
 
 Creating a Router
 -----------------
 
-The router defines what people are allowed to do with the fruits in our database. We will only add the CRUD (Create, Read, Update, Delete) operations, but it's possible to get a lot more creative with what the routes do. 
+The router defines what people are allowed to do with the fruits in our database. We will only add the CRUD (Create, Read, Update, Delete) operations, but it's possible to get a lot more creative with what the routes do.
+
+.. note::
+   In :ref:`How the Backend Works <how_the_backend_works>` steps 2-4, routers, dependencies, and handlers sit in the middle of the request flow.
 
 Let's start by creating the router file. This file will contain the four routes we will make for this tutorial. This is easily the most involved and complex part of the tutorial, routes can (and do!) get very long with a lot of complex logic to allow or forbid users from doing certain things with the database objects. This tutorial will try to keep things pretty simple, but remember you can always ask a su-perman if you feel something is especially confusing.
 
-All our routes are in the ``routes`` directory, create a new file ``fruit_router.py`` in there and add the following imports to that file. Don't worry too much about understanding these.::
+All our routes are in the ``routes`` directory, create a new file ``fruit_router.py`` in there and add the following imports to that file. Don't worry too much about understanding these. ::
 
     from fastapi import APIRouter, HTTPException, status
     from api_schemas.fruit_schema import FruitCreate, FruitRead, FruitUpdate
@@ -131,7 +140,7 @@ All our routes are in the ``routes`` directory, create a new file ``fruit_router
 Read
 ^^^^
 
-We tend to start our router files with the Read route(s) for some reason. You should use something like this:::
+We tend to start our router files with the Read route(s) for some reason. You should use something like this: ::
 
     @fruit_router.get("/{fruit_id}", response_model=FruitRead)
     def get_fruit(fruit_id: int, db: DB_dependency):
@@ -140,33 +149,36 @@ We tend to start our router files with the Read route(s) for some reason. You sh
             raise HTTPException(status.HTTP_404_NOT_FOUND)
         return fruit
 
-I'll walk through this line by line:::
+I'll walk through this line by line: ::
 
     @fruit_router.get("/{fruit_id}", response_model=FruitRead)
 
-This line tells FastAPI that this function is a GET route at the URL path /{fruit_id}. The {fruit_id} part is a variable that will be filled in when calling the route. The response_model=FruitRead part tells FastAPI (which tells Pydantic) to use the FruitRead schema to validate and serialize the response dat::  
+This line tells FastAPI that this function is a GET route at the URL path /{fruit_id}. The {fruit_id} part is a variable that will be filled in when calling the route. The response_model=FruitRead part tells FastAPI (which tells Pydantic) to use the FruitRead schema to validate and serialize the response data. ::  
 
     def get_fruit(fruit_id: int, db: DB_dependency):
 
-This line defines the function get_fruit which takes two parameters: fruit_id and db. The passing of db happens automatically and just connects the route to the database.::  
+This line defines the function get_fruit which takes two parameters: fruit_id and db. The passing of db happens automatically and just connects the route to the database. ::  
 
     fruit = db.query(Fruit_DB).filter_by(id=fruit_id).one_or_none()
 
-Now we query the database for a fruit with the given fruit_id. If no such fruit exists, one_or_none() will return None.::  
+Now we query the database for a fruit with the given fruit_id. If no such fruit exists, one_or_none() will return None. ::  
 
     if fruit is None:
         raise HTTPException(status.HTTP_404_NOT_FOUND)
 
-If no fruit was found, we raise a 404 Not Found HTTP exception.::
+If no fruit was found, we raise a 404 Not Found HTTP exception. ::
 
     return fruit
 
 If a fruit was found, we return it. FastAPI will automatically serialize it to JSON using the FruitRead schema since we specified that in the first line.
 
+.. note::
+   This is a concrete example of :ref:`How the Backend Works <how_the_backend_works>` steps 5-7.
+
 Create
 ^^^^^^
 
-We can now read fruit objects, so let's add a route to create new fruits!::
+We can now read fruit objects, so let's add a route to create new fruits! ::
 
     @fruit_router.post("/", response_model=FruitRead, dependencies=[Permission.require("manage", "User")])
     def create_fruit(fruit_data: FruitCreate, db: DB_dependency):
@@ -179,14 +191,20 @@ We can now read fruit objects, so let's add a route to create new fruits!::
         db.commit()
         return fruit
 
-I'll explain this one line by line as well:::
+I'll explain this one line by line as well: ::
+
     @fruit_router.post("/", response_model=FruitRead, dependencies=[Permission.require("manage", "User")])
 
-This line tells FastAPI that this function is a POST route at the URL path /. The response_model=FruitRead part tells FastAPI to use the FruitRead schema to validate and serialize the response data. The dependencies part ensures that only users with the "manage" permission for "User" can access this route. Note: Usually you really don't want to use "User" here, but adding a new permission target for "Fruit" is difficult for this tutorial so we use "User" for now.::  
+This line tells FastAPI that this function is a POST route at the URL path /. The response_model=FruitRead part tells FastAPI to use the FruitRead schema to validate and serialize the response data. The dependencies part ensures that only users with the "manage" permission for "User" can access this route. 
+
+.. note:: 
+    Usually you really don't want to use "User" here, but adding a new permission target for "Fruit" is difficult for this tutorial so we use "User" for now.
+    
+::  
 
     def create_fruit(fruit_data: FruitCreate, db: DB_dependency):
 
-Like before, we define the function create_fruit which takes two parameters: fruit_data and db. The fruit_data parameter is automatically populated by FastAPI from the request body using the FruitCreate schema.::  
+Like before, we define the function create_fruit which takes two parameters: fruit_data and db. The fruit_data parameter is automatically populated by FastAPI from the request body using the FruitCreate schema. ::  
 
     fruit = Fruit_DB(
         name=fruit_data.name,
@@ -194,12 +212,12 @@ Like before, we define the function create_fruit which takes two parameters: fru
         price=fruit_data.price,
     )
 
-Here we create a new Fruit_DB object using the data from fruit_data.::
+Here we create a new Fruit_DB object using the data from fruit_data. ::
 
     db.add(fruit)
     db.commit()
 
-db.add(fruit) adds the new fruit to the database session, and db.commit() saves the changes to the database.::
+db.add(fruit) adds the new fruit to the database session, and db.commit() saves the changes to the database. ::
 
     return fruit
 
@@ -210,7 +228,7 @@ Okay, now we can move on to the Update route. This one will go a little faster s
 Update
 ^^^^^^
 
-Use this code:::
+Use this code: ::
 
     @fruit_router.patch("/{fruit_id}", response_model=FruitRead, dependencies=[Permission.require("manage", "User")])
     def update_fruit(fruit_id: int, fruit_data: FruitUpdate, db: DB_dependency):
@@ -232,7 +250,7 @@ As you can see, we still only allow users with the "manage" permission for "User
 Delete
 ^^^^^^
 
-You have all the knowledge needed to understand this last route. Here it is:::
+You have all the knowledge needed to understand this last route. Here it is: ::
 
     @fruit_router.delete("/{fruit_id}", response_model=FruitRead, dependencies=[Permission.require("manage", "User")])
     def delete_fruit(fruit_id: int, db: DB_dependency):
@@ -243,18 +261,22 @@ You have all the knowledge needed to understand this last route. Here it is:::
         db.commit()
         return fruit
 
+As in the earlier routes, the response path matches :ref:`How the Backend Works <how_the_backend_works>` steps 5-7.
+
 
 Add the Router to the Application
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The main program needs to know about your new router in order for it to work. Go to routes/__init__.py and add the following import at the top::
+The main program needs to know about your new router in order for it to work. Go to routes/__init__.py and add the following import at the top. ::
 
     from routes.fruit_router import fruit_router
 
-Then, find the section where other routers are included and add this line::
+Then, find the section where other routers are included and add this line: ::
 
     app.include_router(fruit_router, prefix="/fruits", tags=["Fruits"])
 
+.. note::
+   This is the wiring described in :ref:`How the Backend Works <how_the_backend_works>` step 2 (router registration).
 
 Great! You have now created all four CRUD routes for the Fruit model. This is a good time to take a step back and review what you've done. Next up is testing your new routes to make sure they work as expected.
 
@@ -262,7 +284,9 @@ Great! You have now created all four CRUD routes for the Fruit model. This is a 
 Testing the Routes
 ------------------
 
-You should always test your routes to make sure they work as you expect them to. We really encourage you to write automated tests for your routes (ask a su-perman if you need help with that), but the easiest way to test them quickly is to use the built-in Swagger UI that comes with FastAPI. Start the backend with the command ``uvicorn main:app --reload`` and open your web browser to ``http://localhost:8000/docs``. You should see the Swagger UI with a list of all available routes. You will have to log in first using the "Authorize" button in the top right corner to test the routes that require permissions. Ask a su-perman for the account details.
+You should always test your routes to make sure they work as you expect them to. We really encourage you to write automated tests for your routes (ask a su-perman if you need help with that), but the easiest way to test them quickly is to use the built-in Swagger UI that comes with FastAPI. Start the backend with the command ``uvicorn main:app --reload`` and open your web browser to ``http://localhost:8000/docs``.
+
+You should see the Swagger UI with a list of all available routes. You will have to log in first using the "Authorize" button in the top right corner to test the routes that require permissions. Ask a su-perman for the account details.
 
 .. tip::
    Testing can really help during development. Test your routes manually as you create them, and when you create pull requests always include automated tests to ensure your code works as expected and to prevent future changes from breaking it. (You can ask a su-perman or bot for help with writing tests!)

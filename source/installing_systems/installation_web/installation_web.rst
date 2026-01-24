@@ -2,7 +2,7 @@ Web Installation Guide
 ======================
 
 If you are using Windows as your operating system, head over to the :ref:`operating-systems`
-page before installing the web. Otherwise, assuming you now have a running Unix based OS in some way or another,
+page before installing the web. Otherwise, assuming you now have a way to run Docker (for example with WSL, or by using Linux or MacOS) some way or another,
 you can continue on and start following the installation guides below
 to get set up and running. Hopefully everything will go smoothly, but sometimes there are some
 complications since all of our systems are different. They are fixable though,

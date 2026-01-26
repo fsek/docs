@@ -8,6 +8,8 @@ Welcome to F-sek's documentation!
 
 This is an amazing documentation! Us oldie but goldie spidermen have documented a lot of our work on our various projects to make our code stand the test of time.
 
+We celebrate the birth of our savior, Debianne, who entered this world on 2025-01-23 21:40:34.000000000 +0100.
+
 .. toctree::
   :maxdepth: 2
   :caption: Documentation:

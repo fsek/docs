@@ -1,56 +1,189 @@
 .. _git-workflow:
 
 Git workflow
-========================
+============
 
-The steps below describe going from an idea, implementing it and then adding it to the live website. If you're new to Github I would recommend heading here for a more general description of the workflow. It's important to understand the purpose of the steps below before you learn the actual commands.
+This guide walks you through the most important concepts in Git and how to use them
+day-to-day.
 
-1. **Create a new branch: git checkout -b new-branch**
+-----------
+Key concepts
+-----------
 
-This step ensures your changes won't interfere with the main branch of the website. When on your own branch you can change stuff without worrying about accidentally affecting the website.
+**Repository (repo)**
+  A folder tracked by Git. It contains your files and the entire history of every change
+  ever made to them.
 
-2. **Make some changes**
+**Commit**
+  A snapshot of your changes. Each commit has a message describing what changed and why.
+  Commits are the building blocks of your project's history.
 
-3. **Prepare to upload changes: git add [FILENAME] [-FLAG]**
+**Branch**
+  An independent line of development. The default branch is usually called ``main`` or
+  ``main``. You create new branches to work on features or fixes without touching the
+  main branch.
 
-This command tells git that you are finished editing your files. The FLAG is optional and is useful if you want to add all changed files. If that is the case omit FILENAME and use A as flag.
+**Remote**
+  A copy of the repository hosted somewhere else, typically GitHub. You push your changes
+  to the remote to share them, and pull from it to receive others' changes.
 
-4. **Group changes and describe them: git commit [-m "message"]**
+-----------
+First-time setup
+-----------
 
-Try to write a descriptive message to ensure changes make sense to any collaborator. If you write only git commit git will use a text editor where you can write your commit message. This allows multiline messages which can be useful.
+Before your first commit, tell Git who you are. This information is attached to every
+commit you make::
 
-5. **Head to the master branch to ensure you have the latest version of the website: git checkout master**
+  git config --global user.name "Your Name"
+  git config --global user.email "you@example.com"
 
-It's important to get the latest version to check if your changes interfere with any other changes.
+-----------
+Starting out
+-----------
 
-6. **Fetch changes: git pull**
+To start tracking an existing folder with Git::
 
-Downloads the latest version from GitHub. If no changes were downloaded go to step 11.
+  git init
 
-7. **Return to your branch: git checkout [YOUR BRANCH]**
+More commonly, you'll begin by cloning an existing repository from GitHub::
 
-8. **Combine the changes to master with yours: git rebase master**
+  git clone [url]
 
-Before adding the changes to the live website it's important to combine them with other changes. Doing this ensures no complication arises when later adding your changes. You will most likely get an "error" message saying your changes could not automatically be merged. If that is not the case then go to step 11.
+This downloads the repository into a new folder and sets up the remote automatically.
 
-9. **Solve conflicts by doing any of the steps below**
+-----------
+Making changes
+-----------
 
-Edit each conflicting file and choose the changes you want to keep
-You can choose an entire file from either master or your branch by running: git checkout [OURS/THEIRS] - [FILE NAME]
-Note: THIS IS HIGHLY UNINTUITIVE
-OURS: This will use the file from master
-THEIRS: This will keep the file from your branch
-Yes this is unintuitive but ours and theirs are from the master branch point of view.
+The basic loop of working with Git looks like this:
 
-10. **When you feel that you have solved all conflicts run (if this fails, keep fixing conflicts with step 9): git rebase --continue**
+**1. Check what has changed**
 
-11. **Push changes to GitHub: git push (-fu)**
+Before doing anything, it's useful to see the current state of your working directory::
 
-If you get an error about being behind the remote branch and still know you want to push run the command with the flag -fu.
+  git status
 
-12. **Head over to GitHub and change to your branch. Create a pull request and describe your changes to potential reviewers. Make changes after suggestions from collaborators and bots.**
+This shows which files have been modified, which are staged, and which are untracked.
 
-13. **If you have several commits which can be logically grouped. Squash them with git rebase -i HEAD~x, where x is the number of commits you wish to change. You are not required to change x commits, you simply have the possibility.**
+**2. Stage your changes**
 
+Git doesn't automatically include every changed file in your next commit — you choose
+what to include by *staging* files::
 
-14. **When you and your collaborators feel satisfied with the changes rebase them into master.**
+  git add [filename]
+
+To stage all changed files at once::
+
+  git add -A
+
+**3. Commit your changes**
+
+A commit bundles your staged changes into a named snapshot::
+
+  git commit -m "Describe what changed and why"
+
+Write short, clear commit messages. A good rule of thumb: the message should complete
+the sentence "This commit will...". For example: *"Add login form validation"* or
+*"Fix broken link in the navbar"*.
+
+Avoid vague messages like *"fix"*, *"stuff"*, or *"asdf"*. Your collaborators — and
+future you — will be grateful.
+
+**4. Repeat**
+
+Make small, focused commits. It's much easier to review and understand a history where
+each commit does one thing than one where a single commit changes everything at once.
+
+-----------
+Branching
+-----------
+
+Always do your work on a separate branch, not directly on ``main``. This keeps the
+main branch stable and makes collaboration much easier.
+
+Create a new branch and switch to it::
+
+  git checkout -b my-feature
+
+Work on your branch freely. You can always see which branch you're on with ``git status``
+or::
+
+  git branch
+
+To switch to an existing branch::
+
+  git checkout [branch-name]
+
+-----------
+Syncing with the remote
+-----------
+
+**Pushing** sends your local commits to GitHub::
+
+  git push -u origin [branch-name]
+
+The ``-u`` flag sets the upstream so that future pushes from this branch only need
+``git push``.
+
+**Pulling** downloads changes from the remote and applies them to your current branch::
+
+  git pull
+
+Do this on ``main`` regularly to stay up to date with your collaborators' work.
+
+-----------
+Updating your branch
+-----------
+
+While you've been working, others may have pushed changes to ``main``. Before opening
+a pull request, incorporate those changes into your branch with ``rebase``::
+
+  git checkout main
+  git pull
+  git checkout my-feature
+  git rebase main
+
+Rebase replays your commits on top of the latest ``main``, keeping the project history
+clean and linear.
+
+**Resolving conflicts**
+
+If Git can't automatically combine changes, it will pause and ask you to resolve the
+conflicts manually. Open the affected files (Git marks the conflicting sections) and
+edit them until the file looks the way it should. Then::
+
+  git add [resolved-file]
+  git rebase --continue
+
+If things go wrong and you want to start over::
+
+  git rebase --abort
+
+-----------
+Pull requests
+-----------
+
+Once your branch is pushed to GitHub, open a **pull request** (PR). A PR is a request
+to merge your branch into ``main``. It gives collaborators a chance to review your
+changes, leave comments, and suggest improvements before anything reaches the main branch.
+
+Write a clear description of what your PR does and why. If it closes an issue, mention
+it. Address any feedback by making new commits on the same branch — the PR updates
+automatically.
+
+When everyone is satisfied, merge the PR into ``main``.
+
+-----------
+A note on force pushing
+-----------
+
+Avoid ``git push -f`` (force push). It rewrites the remote history and can permanently
+destroy your collaborators' work. **Never force push to main.**
+
+The only situation where overwriting remote history may be acceptable is on your own
+feature branch after a local rebase. In that case, use ``--force-with-lease`` instead::
+
+  git push --force-with-lease
+
+Unlike plain ``-f``, this will refuse to push if someone else has pushed to the branch
+since you last fetched a useful safety net.

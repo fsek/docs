@@ -21,6 +21,7 @@ We celebrate the birth of our savior, Debianne, who entered this world on 2025-0
   ./framework_docs/framework
   ./examples/examples
   ./spider_conference/spider_conference
+  ./mattermost/mattermost
   spiderman_duties
   rostsystem
   template
